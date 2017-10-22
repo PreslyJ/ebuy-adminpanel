@@ -12,7 +12,7 @@
                 <div class="col-md-6" style="top:25px">
 
                     <a href="" class="btn btn-sm btn-info" ng-click="search();"><i class="fa  fa-search" aria-hidden="true" title="Search" ></i></a>
-                    <button type="button"  class="btn btn-primary btn-sm" ng-click="productAddEdit('Add')">Add Product</button>
+                    <button type="button"  class="btn btn-primary btn-sm" ng-click="categoryAddEdit('Add')">Add Category</button>
                     <button type="button"  class="btn btn-success btn-sm" ng-click="reloadContent()">Refresh</button>
                     <!--<div class="refresh" style="top: -7px" >
 
@@ -47,22 +47,22 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="product in categorytDetails.categoryList ">
-                                <td>{{(categorytDetails.page*pageSize)+$index+1}}</td>
-                                <td>{{product.id}}</td>
-                                <td>{{product.name}}</td>
-                                <td>{{product.description}}</td>
+                            <tr ng-repeat="category in categoryDetails.categoryList ">
+                                <td>{{(categoryDetails.page*pageSize)+$index+1}}</td>
+                                <td>{{category.id}}</td>
+                                <td>{{category.name}}</td>
+                                <td>{{category.description}}</td>
                                 <td>
-                                    <div ng-class="{'div-active':product.isActive,'div-inactive':!product.isActive}">
+                                    <div ng-class="{'div-active':category.isActive,'div-inactive':!category.isActive}">
                                         <i class="fa " aria-hidden="true"
-                                           ng-class="{'fa-check-circle':product.isActive,'fa-times-circle':!product.isActive}"></i>
+                                           ng-class="{'fa-check-circle':category.isActive,'fa-times-circle':!category.isActive}"></i>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="btn-group" ng-model="button.radio" bs-radio-group>
-                                        <label class="btn btn-xs btn-primary" ng-click="productAddEdit('Edit',product)"><input
+                                        <label class="btn btn-xs btn-primary" ng-click="categoryAddEdit('Edit',category)"><input
                                                 class="btn btn-xs btn-default" value="0" type="radio"> Edit</label>
-                                        <lable class="btn btn-xs btn-danger" ng-click="productDelete(product)"
+                                        <lable class="btn btn-xs btn-danger" ng-click="deleteCategory(category.id)"
                                                data-placement="auto bottom"
                                                data-template-url="views/confirmBox.html"
                                                data-animation="am-flip-x" data-auto-close="1" bs-popover> Delete
@@ -79,32 +79,32 @@
 
             <div class="pagination-container"> <!--pagination start -->
 
-                <nav aria-label="Page navigation" ng-if="categorytDetails.pagination.length">
+                <nav aria-label="Page navigation" ng-if="categoryDetails.pagination.length">
                     <div class="">
 
                         <ul class="pagination">
-                            <li class="" ng-if="categorytDetails.pagination.length >10">
-                                <a href="" aria-label="Previous" ng-click="loadNextPage(0,'categorytDetails')">
+                            <li class="" ng-if="categoryDetails.pagination.length >10">
+                                <a href="" aria-label="Previous" ng-click="loadNextPage(0,'categoryDetails')">
                                     <span aria-hidden="true">First</span>
                                 </a>
                             </li>
-                            <li class="" ng-class="{'disabled':categorytDetails.isFirstPage}">
-                                <a href="" aria-label="Previous" ng-click="pageNavigation('prev','categorytDetails')">
+                            <li class="" ng-class="{'disabled':categoryDetails.isFirstPage}">
+                                <a href="" aria-label="Previous" ng-click="pageNavigation('prev','categoryDetails')">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li data-ng-repeat="page in categorytDetails.pagination | limitTo:10:categorytDetails.limitStart"
+                            <li data-ng-repeat="page in categoryDetails.pagination | limitTo:10:categoryDetails.limitStart"
                                 ng-class="{'active':page.active}">
-                                <a href="" ng-click="loadNextPage(page.id,'categorytDetails')">{{page.id+1}}</a>
+                                <a href="" ng-click="loadNextPage(page.id,'categoryDetails')">{{page.id+1}}</a>
                             </li>
-                            <li ng-class="{'disabled':categorytDetails.isLastPage}">
-                                <a href="" aria-label="Next" ng-click="pageNavigation('next','categorytDetails')">
+                            <li ng-class="{'disabled':categoryDetails.isLastPage}">
+                                <a href="" aria-label="Next" ng-click="pageNavigation('next','categoryDetails')">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
-                            <li class="" ng-if="categorytDetails.pagination.length >10">
+                            <li class="" ng-if="categoryDetails.pagination.length >10">
                                 <a href="" aria-label="Previous"
-                                   ng-click="loadNextPage((categorytDetails.pagination.length-1),'categorytDetails')">
+                                   ng-click="loadNextPage((categoryDetails.pagination.length-1),'categoryDetails')">
                                     <span aria-hidden="true">Last</span>
                                 </a>
                             </li>

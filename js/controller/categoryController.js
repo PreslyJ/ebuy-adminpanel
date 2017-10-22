@@ -1,130 +1,87 @@
-
 app.controller('categoryController', ['$scope', '$modal', 'CommonService', 'dashBoardService', 'HttpService',
     function ($scope, $modal, CommonService, dashBoardService, HttpService) {
 
 
-        $scope.categorytDetails = {};
-        $scope.categorytDetails.productList = [];
-        $scope.categorytDetails.page = 0;
+        $scope.categoryDetails = {};
+        $scope.categoryDetails.catogoryList = [];
+        $scope.categoryDetails.page = 0;
         $scope.pageSize = 20;
-        $scope.categorytDetails.categoryList = [{
-            "id": 2,
-            "name": "Test",
-            "description": "Test",
-            "isActive":true,
-            "subCategory": {
-                "id": 1,
+        $scope.categoryDetails.categoryList = [
+            {
                 "name": "Baby Toys",
                 "description": "Toys for babies",
-                "category": {
-                    "name": "Baby Items",
-                    "description": "Items for babies",
-                    "id": 2
-                }
+                "isActive":true,
+                "id": 1
             },
-            "items": [
-                {
-                    "id": 2,
-                    "name": "Test",
-                    "description": "Test",
-                    "minAge": 0,
-                    "maxAge": 0,
-                    "price": 200,
-                    "quantity": 0,
-                    "size": null,
-                    "otherProperties": null,
-                    "lupDate": 1506778270327,
-                    "featured": true,
-                    "recomended": true
-                }]
-        },
             {
-                "id": 3,
-                "name": "Test2",
-                "description": "Test2",
+                "name": "Baby Toys",
+                "description": "Toys for babies",
                 "isActive":false,
-                "subCategory": {
-                    "id": 1,
-                    "name": "Baby Toys",
-                    "description": "Toys for babies",
-                    "category": {
-                        "name": "Baby Items",
-                        "description": "Items for babies",
-                        "id": 2
-                    }
-                },
-                "items": [
-                    {
-                        "id": 2,
-                        "name": "Test",
-                        "description": "Test",
-                        "minAge": 0,
-                        "maxAge": 0,
-                        "price": 200,
-                        "quantity": 0,
-                        "size": null,
-                        "otherProperties": null,
-                        "lupDate": 1506778270327,
-                        "featured": true,
-                        "recomended": true
-                    }]
+                "id": 1
             }
         ];
-        function managePagination(categorytDetails) {
-            $scope.categorytDetails.totalPages = categorytDetails.totalPages;
-            $scope.categorytDetails.isFirstPage = categorytDetails.first;
-            $scope.categorytDetails.isLastPage = categorytDetails.last;
-            $scope.categorytDetails.page = categorytDetails.number;
-            $scope.categorytDetails.pagination = [];
-            if ($scope.categorytDetails.totalPages > 1) {
-                $scope.categorytDetails.pagination = categorytDetails.generatePagination($scope.categorytDetails.totalPages, $scope.categorytDetails.page);
+        function managePagination(categoryDetails) {
+            $scope.categoryDetails.totalPages = categoryDetails.totalPages;
+            $scope.categoryDetails.isFirstPage = categoryDetails.first;
+            $scope.categoryDetails.isLastPage = categoryDetails.last;
+            $scope.categoryDetails.page = categoryDetails.number;
+            $scope.categoryDetails.pagination = [];
+            if ($scope.categoryDetails.totalPages > 1) {
+                $scope.categoryDetails.pagination = categoryDetails.generatePagination($scope.categoryDetails.totalPages, $scope.categoryDetails.page);
             }
-            $scope.categorytDetails.limitStart = categorytDetails.checkLimitStart($scope.categorytDetails.page, $scope.categorytDetails.pagination.length);
+            $scope.categoryDetails.limitStart = categoryDetails.checkLimitStart($scope.categoryDetails.page, $scope.categoryDetails.pagination.length);
         }
 
         function loadPage(pageNo) {
-            HttpService.getAllProducts({"page": pageNo, "size": $scope.pageSize, sort:'id'},function (response) {
-                $scope.categorytDetails.productList = response;
+            HttpService.getAllCategories({"page": pageNo, "size": $scope.pageSize, sort: 'id'}, function (response) {
+                $scope.categoryDetails.catogoryList = response;
                 managePagination(response);
             })
         }
-        var modalAddEdit;
-        $scope.productAddEdit  = function (type,value) {
-            var productAddEditScope = $scope.$new(true);
-            productAddEditScope.type = type;
-            productAddEditScope.submitForm = false;
 
-            if(type =="Edit"){
-                productAddEditScope.categorytDetails = value;
+        var modalAddEdit;
+        $scope.categoryAddEdit = function (type, value) {
+            var categoryAddEditScope = $scope.$new(true);
+            categoryAddEditScope.type = type;
+            categoryAddEditScope.submitForm = false;
+
+            if (type == "Edit") {
+                categoryAddEditScope.categoryDetails = value;
             }
-            else{
-                productAddEditScope.categorytDetails = {
-                    "name":"",
-                    "description":"",
-                    "isActive":true
+            else {
+                categoryAddEditScope.categoryDetails = {
+                    "name": "",
+                    "description": "",
+                    "isActive": true
                 }
             }
-            productAddEditScope.productSubmit =function(){
-                if(productAddEditScope.categorytDetails.name){
-                    HttpService.saveProduct(productAddEditScope.categorytDetails,function(response){
+            categoryAddEditScope.categorySubmit = function () {
+                if (categoryAddEditScope.categoryDetails.name) {
+                    HttpService.saveCategory(categoryAddEditScope.categoryDetails, function (response) {
                         loadPage();
                         modalAddEdit.$promise.then(modalAddEdit.hide);
 
                     });
                 }
-                else{
-                    productAddEditScope.submitForm = true;
+                else {
+                    categoryAddEditScope.submitForm = true;
                 }
             };
 
-            modalAddEdit = $modal({scope: productAddEditScope, templateUrl: "views/product/addEditProduct.html", show: true ,backdrop: 'static'});
+            modalAddEdit = $modal({
+                scope: categoryAddEditScope,
+                templateUrl: "views/category/addEditCategory.html",
+                show: true,
+                backdrop: 'static'
+            });
 
         };
 
         function int() {
             loadPage();
         }
-        $scope.reloadContent =function () {
+
+        $scope.reloadContent = function () {
             loadPage();
         };
         $scope.loadNextPage = function (id) {
@@ -133,13 +90,21 @@ app.controller('categoryController', ['$scope', '$modal', 'CommonService', 'dash
 
         $scope.pageNavigation = function (type) {
             if (type === "prev") {
-                $scope.categorytDetails.page = $scope.categorytDetails.page - 1;
-                loadPage($scope.categorytDetails.page);
+                $scope.categoryDetails.page = $scope.categoryDetails.page - 1;
+                loadPage($scope.categoryDetails.page);
             }
             else {
-                $scope.categorytDetails.page = $scope.categorytDetails.page + 1;
-                loadPage($scope.categorytDetails.page);
+                $scope.categoryDetails.page = $scope.categoryDetails.page + 1;
+                loadPage($scope.categoryDetails.page);
             }
+        };
+        $scope.deleteCategory = function(id){
+            $scope.selectedId = id
+        };
+        $scope.confirmDelete= function () {
+            HttpService.deleteCategory({"id":$scope.selectedId},function (response) {
+                loadPage(0)
+            })
         };
         int();
     }]);
