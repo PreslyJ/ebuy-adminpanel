@@ -1,29 +1,361 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Posters Galore Administration</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body ng-app="myApp" ng-strict-di>
-        <div ui-view="ng-admin"></div>
-        <script type="text/javascript">
-        var username = window.localStorage.getItem('posters_galore_login');
-        if (!username) {
-            window.location.href = "./login.html";
-        }
-        function logout() {
-            window.localStorage.removeItem('posters_galore_login');
-            window.location.href = "./login.html";
-        }
-        </script>
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-          ga('create', 'UA-46201426-1', 'auto');
-          ga('send', 'pageview');
-        </script>
-    </body>
+<html ng-app="ebuy">
+<head>
+    <meta charset="UTF-8">
+
+
+    <title>SIMS | Dashboard</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- bootstrap 3.0.2 -->
+    <link href="libraries/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <!-- font Awesome -->
+    <link href="libraries/components-font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link href="libraries/angular-loading-bar/build/loading-bar.css" rel="stylesheet" type="text/css"/>
+    <!-- Theme style -->
+    <link href="css/AdminLTE.css" rel="stylesheet" type="text/css"/>
+    <link href="libraries/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link  href="css/login.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="js/vendor/adm-dtp/ADM-dateTimePicker.css">
+    <link rel="stylesheet" href="libraries/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>
+    <link href="libraries/moment-picker/dist/angular-moment-picker.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="js/vendor/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="libraries/jsoneditor/dist/jsoneditor.min.css">
+    <link href="css/customCSS.css" rel="stylesheet" type="text/css" />
+
+
+
+    <!--webhook-->
+    <!-- <script type="text/javascript">
+         function getCookie(cname) {
+             var name = cname + "=";
+             var ca = document.cookie.split(';');
+             for (var i = 0; i < ca.length; i++) {
+                 var c = ca[i];
+                 while (c.charAt(0) == ' ') {
+                     c = c.substring(1);
+                 }
+                 if (c.indexOf(name) == 0) {
+                     return c.substring(name.length, c.length);
+                 }
+             }
+             return "";
+         }
+         document.cookie = "";
+         var token = getCookie('token');
+         if (typeof(token) == "undefined" || !token) {
+             //  window.location.href = "TechLead/Projects/sims-template-frontend/login";
+         }
+     </script>-->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+   <!-- <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>-->
+
+    <![endif]-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhhe3ljR4umVceax4nyQROJl8J55MOYkA"></script>
+</head>
+<body class="skin-black sidebar-mini"  >
+<!-- header logo: style can be found in header.less -->
+<header class="header" ng-if="title !=='login'" ng-class="{'show-div':title !=='login','hide-div':title ==='login'}">
+    <a href="index.html" class="logo">
+        <!-- Add the class icon to your logo image or logo icon to add the margining -->
+         <img src="img/logo/sims.png" class="img-circle" style="height:25px"alt="sims"/>&nbsp;&nbsp;<span ng-style="disableCollapse(para)">ebuy</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-fixed-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a class="navbar-btn sidebar-toggle"  ng-click="collapseSideBar()">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+        <ol class="breadcrumb">
+            <li><a href="javascript:void(0)"><i class="fa fa-dashboard"></i>{{Home}}</a></li>
+            <li ng-repeat="breadcrumb in breadcrumbs track by $index" ng-if="breadcrumb.value != ''" ng-class="{ active : $last }" ><a ng-href="{{($last) ? 'javascript:void(0)' : '#/'+breadcrumb.path}}">{{breadcrumb.value}}</a></li>
+        </ol>
+        <div class="navbar-right">
+            <ul class="nav navbar-nav">
+
+
+                <!-- Messages: style can be found in dropdown.less-->
+                <li class="dropdown messages-menu message">
+                    <a href="javascript:void(0)" ng-click="loadMessageAlerts()" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-envelope"></i>
+                        <span class="label label-warning" ng-show="notifications.messageCount && notifications.messageCount !==0">{{notifications.messageCount}}</span>
+                    </a>
+                    <ul class="dropdown-menu alert-dropdown">
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                <li ng-repeat="message in notifications.messageList track by $index"><!-- start message -->
+                                    <a href="" ng-click="messageLogNavigation(message)">
+                                        <div class="pull-left">
+                                        </div>
+                                        <h4>
+                                            <span style=" padding-right: 10px;"><i class="fa fa-warning text-yellow"></i></span>{{message.messageText}}
+                                        </h4>
+                                    </a>
+                                </li><!-- end message -->
+                            </ul>
+                        </li>
+                        <li class="footer"><a href="" ng-if="displayMessageMoreOption" ng-click="loadNextMessages()">More</a></li>
+                    </ul>
+                </li>
+                <!-- Tasks: style can be found in dropdown.less -->
+                <!-- Messages: style can be found in dropdown.less-->
+                <li class="dropdown messages-menu alert-option">
+                    <a href="" ng-click="loadAlerts()" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-bell"></i>
+                        <span class="label label-danger" ng-show="notifications.alertCount && notifications.alertCount !==0">{{notifications.alertCount}}</span>
+                    </a>
+                    <ul class="dropdown-menu alert-dropdown">
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                <li ng-repeat="alert in notifications.alertList"><!-- start message -->
+                                    <a href="" ng-click="alertNavigation(alert)">
+                                        <div class="pull-left">
+                                        </div>
+                                        <h4>
+                                            <span class="fail-msg"><i class="fa  fa-ban" aria-hidden="true"></i> &nbsp;&nbsp;</span>   {{alert.message}}
+                                        </h4>
+                                        <span class="alert-imei balance-time" ng-if="alert.subscriber.imei">UID : {{alert.subscriber.imei}}</span><span class="alert-time fail-msg"><i class="balance-time " am-time-ago="alert.eventDate"></i></span>
+                                    </a>
+                                </li><!-- end message -->
+                            </ul>
+                        </li>
+                        <li class="footer"><a href="" ng-if="displayMoreOption" ng-click="loadNextAlert()">More</a></li>
+                    </ul>
+                </li>
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class="dropdown user user-menu">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-user"></i>
+                        <span>{{loginUserName}}   <i class="caret"></i></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- User image -->
+                        <li class="user-header bg-light-blue">
+                            <img src="img/userprofile.png" class="img-circle" alt="User Image"/>
+                            <p>
+                                {{loginUserName}}
+
+                            </p>
+                        </li>
+                        <!-- Menu Body -->
+                        <!-- <li class="user-body">
+                             <div class="col-xs-4 text-center">
+                                 <a href="#">Followers</a>
+                             </div>
+                             <div class="col-xs-4 text-center">
+                                 <a href="#">Sales</a>
+                             </div>
+                             <div class="col-xs-4 text-center">
+                                 <a href="#">Friends</a>
+                             </div>
+                         </li>-->
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <!--<div class="pull-left">
+                            
+                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                            </div>-->
+                            <div class="pull-right">
+                                <a href="" ng-click="logOut()" class="btn btn-default btn-flat">Sign out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<div class="wrapper row-offcanvas row-offcanvas-left show-div" ng-class="{'login-background':title ==='login'}" >
+    <!-- Left side column. contains the logo and sidebar -->
+    <div ng-include="'sideMenu.html'" id="menu"></div>
+    <!-- Right side column. Contains the navbar and content of the page -->
+    <aside class="right-side">
+        <!-- Content Header (Page header) -->
+        <section class="content-header" ng-class="{'show-div':title !=='login' ,'hide-div login-background':title ==='login'}" >
+
+        </section>
+        <div id="alerts-container" ng-class="{'show-div':title !=='login' ,'hide-div login-background':title ==='login'}">
+        </div>
+
+        <!-- Main content -->
+        <!--ng-class="{'dashboard-container': title === 'Dashboard'}"-->
+        <section class="content" ng-view ng-class="{'login-background':title ==='login'}">
+
+
+        </section><!-- /.content -->
+    </aside><!-- /.right-side -->
+
+    <script type="text/ng-template" id="sideMenu.html">
+        <aside class="left-side sidebar-offcanvas" ng-class="{'show-div':title !=='login','hide-div':title ==='login'}">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <!--<div class="user-panel">-->
+                    <!--<div class="pull-left image">-->
+                        <!--<img src="img/avatar3.png" class="img-circle" alt="User Image"/>-->
+                    <!--</div>-->
+                    <!--<div ng-style="disableCollapse(para)" class="pull-left info">-->
+                        <!--<p>{{loginUser | uppercase}}</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!-- search form -->
+                <div  ng-style =disableCollapse(para) class="input-group sidebar-form">
+                    <input type="text" name="q" ng-model="q" class="form-control" placeholder="Search..."/>
+                    <span class="input-group-btn">
+                                <a href='#/subscribers/{{q}}/gsm' name='seach' id='search-btn' class="btn btn-flat"><i
+                                        class="fa fa-search"></i></a>
+                            </span>
+                </div>
+                <!-- /.search form -->
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu" >
+                    <li class="treeview" ng-repeat="menu in menuList" ng-class="{'active':menu.active}">
+                        <a href="{{menu.route}}" ng-click="clickOnMainMenu($index)" ng-if="!menu.subMenuActive" >
+                            <i class="fa {{menu.icon}}" aria-hidden="true"></i>
+
+                            <span ng-style=disableCollapse(para) >{{menu.mainMenu}}</span>
+                            <span class="pull-right-container" ng-if="menu.subMenu.length">
+                                  <i  ng-style=disableCollapse(para) class="fa fa-angle-left pull-right"
+                                     ng-class="{'sub-menu-active':menu.subMenuActive}"></i>
+                                </span>
+                        </a>
+                        <a href="" ng-click="clickOnMainMenu($index)" ng-if="menu.subMenuActive">
+                            <i class="fa {{menu.icon}}" aria-hidden="true"></i>
+
+                            <span ng-style=disableCollapse(para) >{{menu.mainMenu}}</span>
+                            <span class="pull-right-container" ng-if="menu.subMenu.length">
+                                  <i  ng-style=disableCollapse(para) class="fa fa-angle-left pull-right"
+                                      ng-class="{'sub-menu-active':menu.subMenuActive}"></i>
+                                </span>
+                        </a>
+                        <ul  ng-style=disableCollapse(para) class="treeview-menu" style="display: block;" ng-if="menu.subMenu.length && menu.subMenuActive">
+                            <li class="sub-menu "   ng-repeat="sub in menu.subMenu" ng-class="{'active':!sub.active}">
+                                <a href="{{sub.route}}" ng-click="clickOnSubMenu(menu.subMenu,$index)"><i
+                                        class="fa fa-circle-o"></i>{{sub.title}}</a>
+                            </li>
+                        </ul>
+
+                    </li>
+                </ul>
+
+
+
+            </section>
+
+            <!-- /.sidebar -->
+        </aside>
+        <div class="version" ng-class="{'show-div':title !=='login' ,'hide-div login-background':title ==='login'}">{{version}}</div>
+
+    </script>
+</div><!-- ./wrapper -->
+<!--<div class="login-page  " ng-if="title ==='login'">
+    <div ng-view>
+
+    </div>
+</div>-->
+<!-- add new calendar event modal -->
+
+
+
+<!-- jQuery 2.0.2 -->
+<script src="libraries/jquery/dist/jquery.js"></script>
+<!-- Bootstrap -->
+<script src="libraries/bootstrap/dist/js/bootstrap.js" type="text/javascript"></script>
+<script src="libraries/datatables.net/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="libraries/datatables.net-bs/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
+
+<!-- Angular JS -->
+<script src="libraries/angular/angular.js" type="text/javascript"></script>
+<script src="libraries/angular-loading-bar/build/loading-bar.js" type="text/javascript"></script>
+<script src="libraries/angular-strap/dist/angular-strap.js" type="text/javascript"></script>
+<script src="libraries/angular-strap/dist/angular-strap.tpl.js" type="text/javascript"></script>
+<script src="libraries/angular-route/angular-route.js" type="text/javascript"></script>
+<script src="libraries/angular-resource/angular-resource.js" type="text/javascript"></script>
+<script src="libraries/angular-animate/angular-animate.js" type="text/javascript"></script>
+<script src="libraries/angular-cookies/angular-cookies.js"></script>
+<script src="libraries/angu-fixed-header-table/angu-fixed-header-table.js"></script>
+<script src="libraries/angular-jwt/dist/angular-jwt.min.js"></script>
+<script src="libraries/angular-local-storage/dist/angular-local-storage.min.js"></script>
+<script src="js/vendor/adm-dtp/ADM-dateTimePicker.js"></script>
+<script src="js/vendor/fill-height.js" type="text/javascript"></script>
+<script src="js/vendor/clipboard.min.js" type="text/javascript"></script>
+<script src="js/vendor/ngclipboard.min.js" type="text/javascript"></script>
+<script src="libraries/underscore/underscore.js"></script>
+<script src="libraries/moment/moment.js"></script>
+<script src="libraries/angular-moment/angular-moment.js"></script>
+<script src="libraries/moment/min/moment-with-locales.js"></script>
+<script src="libraries/moment-picker/dist/angular-moment-picker.js"></script>
+<script src="js/vendor/socketio/socket.io-1.4.5.js"></script>
+<script src="libraries/angular-socket-io/socket.min.js"></script>
+<script src="libraries/chart.js/dist/Chart.js"></script>
+<script src="libraries/jsoneditor/dist/jsoneditor.min.js"></script>
+<script src="libraries/ng-jsoneditor/ng-jsoneditor.js"></script>
+<script src="js/vendor/chartjs/angular-chart.min.js"></script>
+<script src="js/vendor/export/tableExport.js"></script>
+<script src="js/vendor/export/jquery.base64.js"></script>
+<script src="js/vendor/export/html2canvas.js"></script>
+<script src="js/vendor/export/jspdf/libs/sprintf.js"></script>
+<script src="js/vendor/export/jspdf/jspdf.js"></script>
+<script src="js/vendor/export/jspdf/libs/base64.js"></script>
+<script src="js/vendor/codemirror/lib/codemirror.js"></script>
+<script src="js/vendor/codemirror/mode/groovy/groovy.js"></script>
+<script src="js/vendor/fixed-header/fixed-table-header.js"></script>
+<script src="js/vendor/angular-file-upload/ng-file-upload.min.js"></script>
+<script src="libraries/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+<script src="libraries/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
+<script src="libraries/angularjs-dropdown-multiselect/dist/angularjs-dropdown-multiselect.min.js"></script>
+<script src="libraries/ngmap/build/scripts/ng-map.min.js"></script>
+<script src="js/app.js" type="text/javascript"></script>
+<script src="js/directive/data-table.js" type="text/javascript"></script>
+<script src="js/directive/export-table.js" type="text/javascript"></script>
+<script src="js/directive/num-only.js" type ="text/javascript"></script>
+<script src="js/directive/spec-char-removal.js" type="text/javascript"></script>
+<script src="js/service/socketService.js" type="text/javascript"></script>
+<script src="js/service/route.js" type="text/javascript"></script>
+<script src="js/service/resourceErrorHandler.js" type="text/javascript"></script>
+<script src="js/service/resourceSuccessHandler.js" type="text/javascript"></script>
+<script src="js/service/httpService.js" type="text/javascript"></script>
+<script src="js/service/deliveryLogService.js" type="text/javascript"></script>
+<script src="js/service/host.js" type="text/javascript"></script>
+<script src="js/service/dashboardService.js" type="text/javascript"></script>
+<script src="js/service/commonService.js" type="text/javascript"></script>
+<script src="js/controller/dashboardController.js" type="text/javascript"></script>
+<script src="js/controller/loginController.js" type="text/javascript"></script>
+<script src="js/controller/productController.js" type="text/javascript"></script>
+<script src="js/controller/categoryController.js" type="text/javascript"></script>
+<script src="js/controller/subCategoryController.js" type="text/javascript"></script>
+<script src="js/controller/itemController.js" type="text/javascript"></script>
+
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('.navbar a.dropdown-toggle').on('click', function(e) {
+            var $el = $(this);
+            var $parent = $(this).offsetParent(".dropdown-menu");
+            $(this).parent("li").toggleClass('open');
+            if(!$parent.parent().hasClass('nav')) {
+                $el.next().css({"top": $el[0].offsetTop, "left": $parent.outerWidth() - 4});
+            }
+
+            $('.nav li.open').not($(this).parents("li")).removeClass("open");
+
+            return false;
+        });
+
+
+    });
+</script>
+</body>
 </html>

@@ -1,0 +1,19 @@
+<div class="container">
+
+	<form class="form-signin" method="post">
+		<h1 class="form-signin-heading text-muted">SIMS</h1>
+		<input type="text" class="form-control" id="login_username" placeholder="Username" required="" autofocus="" ng-model="userName">
+		<input type="password" class="form-control" id="login_password" placeholder="Password" required="" ng-model="password">
+		<button class="btn btn-lg btn-primary btn-block" type="submit" id="login_button" ng-click="login()">
+			Sign In
+		</button>
+    <span class="error" style="color: red" ng-show="submitted && login_error && userName && password || submitted && !userName || submitted && !password" for="login_pass">{{error_message}}</span>
+
+		<lable  style=" color: white !important;float: right;"
+			   data-placement="right"
+			   data-template-url="login/forgetPasswordPopup.html"
+			   data-animation="am-flip-x" data-auto-close="1" bs-popover>Forget password
+		</lable>
+	</form>
+
+</div>

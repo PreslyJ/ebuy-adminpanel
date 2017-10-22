@@ -1,0 +1,38 @@
+<div class="modal upload-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 750px;">
+        <div class="modal-content">
+            <div class="modal-header"><h2>{{type}} Category</h2>
+            </div>
+            <form>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="apn">Name</label>
+                        <input type="text" class="form-control" id="apn" ng-model="productDetails.name">
+                        <label ng-show="submitForm &&  !productDetails.name" class="error error-msg"
+                        >Product name is required.</label>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control" id="sampleText" ng-model="productDetails.description"
+                                  rows="4" cols="50"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Active </label>
+                        <label class="switch-button">
+                            <input type="checkbox" ng-model="productDetails.isActive">
+                            <div class="slider round"></div>
+                        </label>
+
+                    </div>
+
+                <br><br>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$hide()">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Save changes"
+                           ng-click="productSubmit(productDetails)">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

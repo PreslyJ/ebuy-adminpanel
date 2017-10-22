@@ -1,0 +1,56 @@
+{
+  "name": "sims-template-frontend",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Samitha <samitha@techleadintl.com>"
+  ],
+  "license": "TL",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "libraries"
+  ],
+  "dependencies": {
+    "angular": "~1.5.9",
+    "angular-animate": "~1.5.9",
+    "bootstrap": "^3.3.7",
+    "install": "^1.0.4",
+    "bower": "*",
+    "angular-strap": "^2.3.10",
+    "components-font-awesome": "^4.7.0",
+    "angular-route": "~1.5.9",
+    "angular-resource": "~1.5.9",
+    "angular-morris": "~1.3.0",
+    "angular-loader": "~1.5.9",
+    "angular-loading-bar": "~0.9.0",
+    "angular-cookies": "~1.5.9",
+    "underscore": "~1.8.3",
+    "ng-scrollbars": "^0.0.11",
+    "angular-socket-io": "^0.7.0",
+    "socket.io-client": "^1.7.2",
+    "socket.io": "^1.7.2",
+    "angular-moment": "^1.0.1",
+    "chart.js": "^2.4.0",
+    "datatables.net": "^1.10.14",
+    "datatables.net-bs": "^1.10.14",
+    "angu-fixed-header-table": "^1.2.0",
+    "angular-bootstrap-datetimepicker": "^1.1.3",
+    "angularjs-dropdown-multiselect": "^1.11.8",
+    "moment-picker": "^0.10.1",
+    "angular-jwt": "~0.1.9",
+    "angular-local-storage": "^0.7.1",
+    "ngmap": "^1.18.4",
+    "adm-dtp": "*",
+    "ng-jsoneditor": "angular-tools/ng-jsoneditor#^1.0.0"
+
+  },
+  "devDependencies": {
+    "angular-datetime-inputs": "^0.1.30"
+  }
+}

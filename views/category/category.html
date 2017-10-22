@@ -1,0 +1,119 @@
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-xs-12 ">
+            <div class="filter-panel">
+
+                <div class="col-md-2">
+                    <label>Name</label>
+                    <input id ="subSearch"type="text" class="form-control" ng-model="filterOption.searchText" name="searchText" >
+
+                </div>
+
+                <div class="col-md-6" style="top:25px">
+
+                    <a href="" class="btn btn-sm btn-info" ng-click="search();"><i class="fa  fa-search" aria-hidden="true" title="Search" ></i></a>
+                    <button type="button"  class="btn btn-primary btn-sm" ng-click="productAddEdit('Add')">Add Product</button>
+                    <button type="button"  class="btn btn-success btn-sm" ng-click="reloadContent()">Refresh</button>
+                    <!--<div class="refresh" style="top: -7px" >
+
+                        <i class="fa fa-2 fa-refresh" aria-hidden="true" title="Refresh"
+                           ng-click="reloadContent()"></i>
+                    </div>-->
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="row clearfix">
+
+
+            <div class="col-xs-12">
+                <div class="box table-layout-fix ">
+                    <div class="tablescrollcustom">
+                        <table id="subTable" class="table table-striped table-bordered" cellspacing="0" width="100%"
+                               additional-padding="{{additionalPadding}}" debounce-wait="400" style="margin-bottom: 0px !important">
+                            <thead class="custom-header" fix-head>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Active</th>
+                                <th>Action</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="product in categorytDetails.categoryList ">
+                                <td>{{(categorytDetails.page*pageSize)+$index+1}}</td>
+                                <td>{{product.id}}</td>
+                                <td>{{product.name}}</td>
+                                <td>{{product.description}}</td>
+                                <td>
+                                    <div ng-class="{'div-active':product.isActive,'div-inactive':!product.isActive}">
+                                        <i class="fa " aria-hidden="true"
+                                           ng-class="{'fa-check-circle':product.isActive,'fa-times-circle':!product.isActive}"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="btn-group" ng-model="button.radio" bs-radio-group>
+                                        <label class="btn btn-xs btn-primary" ng-click="productAddEdit('Edit',product)"><input
+                                                class="btn btn-xs btn-default" value="0" type="radio"> Edit</label>
+                                        <lable class="btn btn-xs btn-danger" ng-click="productDelete(product)"
+                                               data-placement="auto bottom"
+                                               data-template-url="views/confirmBox.html"
+                                               data-animation="am-flip-x" data-auto-close="1" bs-popover> Delete
+                                        </lable>
+                                    </div>
+                                </td>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pagination-container"> <!--pagination start -->
+
+                <nav aria-label="Page navigation" ng-if="categorytDetails.pagination.length">
+                    <div class="">
+
+                        <ul class="pagination">
+                            <li class="" ng-if="categorytDetails.pagination.length >10">
+                                <a href="" aria-label="Previous" ng-click="loadNextPage(0,'categorytDetails')">
+                                    <span aria-hidden="true">First</span>
+                                </a>
+                            </li>
+                            <li class="" ng-class="{'disabled':categorytDetails.isFirstPage}">
+                                <a href="" aria-label="Previous" ng-click="pageNavigation('prev','categorytDetails')">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li data-ng-repeat="page in categorytDetails.pagination | limitTo:10:categorytDetails.limitStart"
+                                ng-class="{'active':page.active}">
+                                <a href="" ng-click="loadNextPage(page.id,'categorytDetails')">{{page.id+1}}</a>
+                            </li>
+                            <li ng-class="{'disabled':categorytDetails.isLastPage}">
+                                <a href="" aria-label="Next" ng-click="pageNavigation('next','categorytDetails')">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li class="" ng-if="categorytDetails.pagination.length >10">
+                                <a href="" aria-label="Previous"
+                                   ng-click="loadNextPage((categorytDetails.pagination.length-1),'categorytDetails')">
+                                    <span aria-hidden="true">Last</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div> <!--pagination end -->
+        </div>
+    </div>
+
+</div>
+</div>

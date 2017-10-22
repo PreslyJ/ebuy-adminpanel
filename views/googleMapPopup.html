@@ -1,0 +1,22 @@
+<div class="modal upload-modal" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" style="width: 750px;">
+        <div class="modal-content">
+
+                <div class="modal-header">
+                    <h3 class="modal-title">Location</h3>
+                </div>
+                <div class="modal-body">
+                    <map ng-if="render" center="[{{geopos.lat}}, {{geopos.lng}}]" zoom-control="true" zoom="16"  on-click="click()">
+                        <marker position="{{latlng}}"  on-dragend="getpos($event)"
+                                 animation="DROP" draggable="true"></marker>
+                    </map>
+
+                </div>
+                <div class="modal-footer">
+                    <div>Latitude:{{geopos.lat}} , &nbsp;Longitude:{{geopos.lng}}</div>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$hide()">Close</button>
+
+                </div>
+        </div>
+    </div>
+</div>

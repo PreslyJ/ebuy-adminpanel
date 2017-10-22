@@ -1,0 +1,66 @@
+<div class="container-fluid">
+        <div class="row clearfix">
+                <div class="col-xs-12 ">
+                  <div class="filter-panel">
+                    <div class="col-md-2">
+                        <label>Country</label>
+                        <select class="form-control" ng-model="filterOption.countryId" ng-change="selectCountry(filterOption.countryId)"
+                                ng-options="country.id as country.countryName+' ('+country.mcc+')' for country in countries">
+                            <option value="">ALL</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Operator</label>
+                        <select class="form-control" ng-model="filterOption.operatorId" ng-change="selectOperator(filterOption.operatorId)"
+                                ng-options="operator.id as operator.operatorName for operator in operators">
+                            <option value="">ALL</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Status</label>
+                        <select class="form-control" ng-model="filterOption.isOnline"
+                               >
+                            <option value="">ALL</option>
+                            <option value="online">Online</option>
+                            <option value="offline">Offline</option>
+                        </select>
+                    </div>
+                      <div class="col-md-2">
+                          <label>Search</label>
+                          <input type="text" class="form-control" ng-model="filterOption.searchText" name="searchText" >
+                      </div>
+                      <div class="col-md-2">
+                          <label>By </label>
+                          <select class="form-control" ng-model="filterOption.searchType">
+                              <option value="">All</option>
+                              <option value="imei">UID</option>
+                              <option value="simId">SIM ID</option>
+                              <option value="secondaryPhoneNumber">Mobile No</option>
+                          </select>
+                      </div>
+                      <div class="col-md-2" style="top:25px">
+
+                          <a href="" class="btn btn-sm btn-info" ng-click="search();"><i class="fa  fa-search" aria-hidden="true" title="Search" ></i></a>
+                          <!--<button type="button"  class="btn btn-primary btn-sm" ng-click="addSubscriber()">Add</button>-->
+                          <button type="button"  class="btn btn-success btn-sm" ng-click="reloadContent()">Refresh</button>
+                          <!--<div class="refresh" style="top: -7px" >
+
+                              <i class="fa fa-2 fa-refresh" aria-hidden="true" title="Refresh"
+                                 ng-click="reloadContent()"></i>
+                          </div>-->
+
+                      </div>
+
+                  </div>
+
+            </div>
+        </div>
+    <div class="row clearfix">
+        <div class="row clearfix">
+<!--
+            <div ng-include ="'views/subscriber/subscriberView.html'" ></div>
+-->
+        </div>
+
+        </div>
+</div>
