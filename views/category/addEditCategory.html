@@ -10,7 +10,7 @@
                         <label for="apn">Name</label>
                         <input type="text" class="form-control" id="apn" ng-model="categoryDetails.name">
                         <label ng-show="submitForm &&  !categoryDetails.name" class="error error-msg"
-                        >Product name is required.</label>
+                        >Name is required.</label>
                     </div>
                     <div class="form-group">
                         <label>Description</label>
@@ -30,7 +30,8 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$hide()">Close</button>
                     <input type="submit" class="btn btn-primary" value="Save changes"
-                           ng-click="productSubmit(categoryDetails)">
+                           ng-click="categorySubmit(categoryDetails)">
+                </div>
                 </div>
             </form>
         </div>

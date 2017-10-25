@@ -35,7 +35,7 @@ app.config(function($routeProvider, $locationProvider) {
             }
         })
         .when('/sub-category', {
-            title: 'Product',
+            title: 'Sub-Category',
             templateUrl: 'views/category/sub-category.html',
             controller: 'subCategoryController',
             resolve: {

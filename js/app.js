@@ -223,9 +223,9 @@ app.run(['$rootScope', '$route', '$alert', 'socketService', '$window', '$cookies
                     },
                     {
                         "title": "Sub-Category ",
-                        "route": "#sub_category",
+                        "route": "#sub-category",
                         "active": false,
-                        "originalPath": '/sub_category'
+                        "originalPath": '/sub-category'
                     }],
                 "originalPath": '/category'
             },
