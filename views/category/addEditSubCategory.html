@@ -16,7 +16,7 @@
                         <label>Category</label>
                         <select class="form-control"
                                 ng-model="subCategoryDetails.category.id"
-                                ng-options="category.id as type.name for type in categoryList">
+                                ng-options="type.id as type.name for type in categoryList">
                             <option value="">Please Select</option>
                         </select>
                         <label ng-show="submitted &&  !subCategoryDetails.category.id" class="error error-msg"

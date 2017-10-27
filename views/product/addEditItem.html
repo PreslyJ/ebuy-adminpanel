@@ -1,0 +1,112 @@
+<div class="modal upload-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 750px;">
+        <div class="modal-content">
+            <div class="modal-header"><h2>{{type}} Item</h2>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="apn">Name</label>
+                                <input type="text" class="form-control" id="apn" ng-model="itemDetails.name">
+                                <label ng-show="submitForm &&  !itemDetails.name" class="error error-msg"
+                                >Name is required.</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Sub Category</label>
+                                <select class="form-control"
+                                        ng-model="itemDetails.subCategory.id"
+                                        ng-options="type.id as type.name for type in subCategoryList">
+                                    <option value="">Please Select</option>
+                                </select>
+                                <label ng-show="submitted &&  !itemDetails.subCategory.id" class="error error-msg">Sub
+                                    Category is required.</label>
+                                <div class="col-sm-6">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>Description</label>
+                                <textarea class="form-control" id="sampleText" ng-model="itemDetails.description"
+                                          rows="4" cols="50"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Min Age</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="itemDetails.minAge">
+                                </div>
+                            </div>
+                                <div class="col-sm-6">
+                                <label>Max Age</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="itemDetails.maxAge">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Price</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="itemDetails.price">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Quantity</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="itemDetails.quantity">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Active </label>
+                                <label class="switch-button">
+                                    <input type="checkbox" ng-model="itemDetails.isActive">
+                                    <div class="slider round"></div>
+                                </label>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Recommended </label>
+                                <label class="switch-button">
+                                    <input type="checkbox" ng-model="itemDetails.recomended">
+                                    <div class="slider round"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>Image</label>
+                                <div>
+                                    <input type="file" file-model="myFile"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br><br>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$hide()">
+                                Close
+                            </button>
+                            <input type="submit" class="btn btn-primary" value="Save changes"
+                                   ng-click="itemSubmit(itemDetails)">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

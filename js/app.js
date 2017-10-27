@@ -210,45 +210,30 @@ app.run(['$rootScope', '$route', '$alert', 'socketService', '$window', '$cookies
             },
             {
                 "mainMenu": "Category",
-                "route": "#category",
-                "active": false,
-                "icon": "fa-mobile",
+                "route": "#/category",
+                "active": true,
+                "icon": "fa-dashboard",
                 "subMenuActive": false,
-                "subMenu": [
-                    {
-                        "title": "Category",
-                        "route": "#category",
-                        "active": false,
-                        "originalPath": '/category'
-                    },
-                    {
-                        "title": "Sub-Category ",
-                        "route": "#sub-category",
-                        "active": false,
-                        "originalPath": '/sub-category'
-                    }],
+                "subMenu": [],
                 "originalPath": '/category'
             },
             {
-                "mainMenu": "Product",
-                "route": "#product",
-                "active": false,
-                "icon": "fa-mobile",
+                "mainMenu": "Sub-Category",
+                "route": "#/sub-category",
+                "active": true,
+                "icon": "fa-dashboard",
                 "subMenuActive": false,
-                "subMenu": [
-                    {
-                        "title": "Product",
-                        "route": "#product",
-                        "active": false,
-                        "originalPath": '/product'
-                    },
-                    {
-                        "title": "Item",
-                        "route": "#item",
-                        "active": false,
-                        "originalPath": '/item'
-                    }],
-                "originalPath": '/product'
+                "subMenu": [],
+                "originalPath": '/sub-category'
+            },
+            {
+                "mainMenu": "Item",
+                "route": "#/item",
+                "active": true,
+                "icon": "fa-dashboard",
+                "subMenuActive": false,
+                "subMenu": [],
+                "originalPath": '/item'
             }
 
         ];

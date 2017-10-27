@@ -53,7 +53,7 @@ app.controller('subCategoryController', ['$scope', '$modal','CommonService','das
 
     function loadPage(pageNo) {
         HttpService.getAllCategories({"page": pageNo, "size": $scope.pageSize, sort: 'id'}, function (response) {
-            $scope.subCategoryDetails.catogoryList = response;
+            $scope.subCategoryDetails.subCategoryList = response;
             managePagination(response);
         })
     }
