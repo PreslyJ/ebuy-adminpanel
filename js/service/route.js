@@ -42,6 +42,22 @@ app.config(function($routeProvider, $locationProvider) {
 
             }
         })
+        .when('/stock-report', {
+            title: 'Stock Report',
+            templateUrl: 'views/report/stockReport.html',
+            controller: 'reportController',
+            resolve: {
+
+            }
+        })
+        .when('/credit-report', {
+            title: 'Credit Report',
+            templateUrl: 'views/report/creditReport.html',
+            controller: 'reportController',
+            resolve: {
+
+            }
+        })
         .when('/', {
             title: 'login',
             templateUrl: 'login/login.html',

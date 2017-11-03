@@ -234,6 +234,24 @@ app.run(['$rootScope', '$route', '$alert', 'socketService', '$window', '$cookies
                 "subMenuActive": false,
                 "subMenu": [],
                 "originalPath": '/item'
+            },
+            {
+                "mainMenu": "Stock Report",
+                "route": "#/stock-report",
+                "active": true,
+                "icon": "fa-dashboard",
+                "subMenuActive": false,
+                "subMenu": [],
+                "originalPath": '/stock-report'
+            },
+            {
+                "mainMenu": "Credit Report",
+                "route": "#/credit-report",
+                "active": true,
+                "icon": "fa-dashboard",
+                "subMenuActive": false,
+                "subMenu": [],
+                "originalPath": '/credit-report'
             }
 
         ];
