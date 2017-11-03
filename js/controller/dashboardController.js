@@ -1,6 +1,5 @@
-app.controller('dashboardController', ['$scope', 'statistics', '$timeout', '$rootScope', 'localStorageService', function ($scope, statistics, $timeout, $rootScope, localStorageService) {
+app.controller('dashboardController', ['$scope', '$timeout', '$rootScope', 'localStorageService', function ($scope, $timeout, $rootScope, localStorageService) {
 
-    $scope.statistics = statistics;
     $scope.incomingMessage = [
         {label: "Success", value: 125},
         {label: "Fail", value: 23}
@@ -23,9 +22,6 @@ app.controller('dashboardController', ['$scope', 'statistics', '$timeout', '$roo
 
     //operator lable list
     $scope.bar_labels = [];
-    for (var i = 0; i < $scope.statistics.operators.length; i++) {
-        $scope.bar_labels.push($scope.statistics.operators[i].operatorName);
-    }
 
     $scope.bar_series = ['Active', 'Inactive'];
 
@@ -34,9 +30,7 @@ app.controller('dashboardController', ['$scope', 'statistics', '$timeout', '$roo
         [28, 48, 40, 19, 86, 27, 90, 23, 10, 65, 50, 30, 25]
     ];
 
-    //subscribers related statistics info
-    $scope.subscriberData = statistics.subscriberInfo || {};
-    if (!statistics.subscriberInfo.totalSubscribers) {
+
         $scope.subscriberData = {
             "totSubscribersOpwise": [
                 {
@@ -66,35 +60,19 @@ app.controller('dashboardController', ['$scope', 'statistics', '$timeout', '$roo
             "totalSubscribers": 14,
             "onlineSubscribers": 3
         };
-    }
+
     $scope.subscriberData.chart = {};
-    $scope.subscriberData.chart.labels = $scope.bar_labels;
+    $scope.subscriberData.chart.labels = ["ToyCat1", "ToyCat2","ToyCat3","ToyCat4","ToyCat5","ToyCat6"];
     $scope.subscriberData.chart.data = [];
-    $scope.subscriberData.chart.colors = ['#00ADF9', '#949FB1', '#00A65A'];
-    $scope.subscriberData.chart.data[0] = [];
-    $scope.subscriberData.chart.data[1] = [];
-    $scope.subscriberData.chart.data[2] = [];
-    $scope.subscriberData.chart.series = ['Active', 'Inactive', 'Online'];
+    $scope.subscriberData.chart.colors = ['#00ADF9', '#949FB1'];
+    $scope.subscriberData.chart.data[0] = [100.20,60,10,120,80];
+    $scope.subscriberData.chart.data[1] = [20,80,50,40,10,50,70];
+    $scope.subscriberData.chart.series = ['In Stock', 'Purchased'];
     $scope.subscriberData.chart.option = {legend: {display: true}};
-    if ($scope.subscriberData.totSubscribersOpwise) {
-        angular.forEach($scope.statistics.operators, function (operator) {
-            var allocation = _.find($scope.subscriberData.totSubscribersOpwise, {opId: operator.id});
-            if (allocation) {
-                $scope.subscriberData.chart.data[0].push(allocation.activeCount);
-                $scope.subscriberData.chart.data[1].push(allocation.inactiveCount);
-                $scope.subscriberData.chart.data[2].push(allocation.onlineCount);
-            }
-            else {
-                $scope.subscriberData.chart.data[0].push(0);
-                $scope.subscriberData.chart.data[1].push(0);
-                $scope.subscriberData.chart.data[2].push(0);
-            }
-        });
-    }
+
 
     //cardPool related statistics info
-    $scope.cardData = statistics.cardInfo || {};
-    if (!statistics.cardInfo.totalCount) {
+
         $scope.cardData = {
             "usedActiveTotal": 3,
             "totCardsOpwise": [{
@@ -120,7 +98,7 @@ app.controller('dashboardController', ['$scope', 'statistics', '$timeout', '$roo
             "unUsedActiveTotal": 69,
             "waitingActiveTotal": 1
         };
-    }
+
     $scope.cardData.chart = {};
     $scope.cardData.chart.labels = $scope.bar_labels;
     $scope.cardData.chart.data = [];
@@ -131,38 +109,9 @@ app.controller('dashboardController', ['$scope', 'statistics', '$timeout', '$roo
 
     $scope.cardData.chart.series = ['Ready', 'Used', 'Pending'];
     $scope.cardData.chart.option = {legend: {display: true}};
-    if ($scope.cardData.totCardsOpwise) {
-        angular.forEach($scope.statistics.operators, function (operator) {
-            var allocation = _.find($scope.cardData.totCardsOpwise, {opId: operator.id});
-            if (allocation) {
-                $scope.cardData.chart.data[0].push(allocation.unUsedActive);
-                $scope.cardData.chart.data[1].push(allocation.usedActive);
-                $scope.cardData.chart.data[2].push(allocation.waitingActive);
-            }
-            else {
-                $scope.cardData.chart.data[0].push(0);
-                $scope.cardData.chart.data[1].push(0);
-                $scope.cardData.chart.data[2].push(0);
-            }
-        });
-    }
 
-    //IncomingLog related statistics info
-    $scope.logInfo = $scope.statistics.logInfo;
-    $scope.incomingLogData = {};
-    $scope.incomingLogData.labels = ["Success", "Fail"];
-    $scope.incomingLogData.data = [$scope.logInfo.inSuccess, $scope.logInfo.inFailed];
-    $scope.incomingLogData.option = {legend: {display: true, position: 'bottom'}};
-    $scope.incomingLogData.rate = $scope.logInfo.inTnsPerDay;
-    $scope.incomingLogData.rateUnit = 'Day';
 
-    //OutgoingLog related statistics info
-    $scope.outgoingLogData = {};
-    $scope.outgoingLogData.labels = ["Success", "Fail"];
-    $scope.outgoingLogData.data = [300, 50];
-    $scope.outgoingLogData.option = {legend: {display: true, position: 'bottom'}};
-    $scope.outgoingLogData.rate = $scope.logInfo.outTnsPerDay;
-    $scope.outgoingLogData.rateUnit = 'Day';
+
 
 
 }]);

@@ -1,10 +1,10 @@
-<div class="container-fluid dashboard-container">
+<div class="container-fluid ">
     <div class="row clearfix ">
         <div class="col-xs-12">
-            <div class="col-md-6">
+            <div class="col-md-9">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <a href="#subscribers" > <h3 class="box-title" >Subscribers</h3></a>
+                        <a href="#subscribers" > <h3 class="box-title" >Stock Details</h3></a>
 
                     </div>
                     <div class="box-body" >
@@ -20,71 +20,24 @@
                     <!-- /.box-body -->
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <a href="#cardpool" > <h3 class="box-title">Cards</h3></a>
 
-                    </div>
-                    <div class="box-body">
-                        <div class="chart" id="donut_incoming">
-                            <canvas class="chart chart-bar" chart-data="cardData.chart.data"
-                                    chart-labels="cardData.chart.labels" chart-series="cardData.chart.series"
-                                    chart-click="onClick"
-                                    chart-legend="true" chart-options="cardData.chart.option">
-                            </canvas>
-                        </div>
-                    </div>
-                    <!-- /.box-body -->
-                </div>
-            </div>
-            <!-- fix for small devices only -->
 
-            <div class="col-md-6">
-                <div class="col-md-6">
-                    <div class="box box-success">
-                        <div class="box-header with-border">
+            <div class="col-md-3">
 
-                            <a href="#log/incoming" > <h3 class="box-title">Incoming Logs </h3></a>
-                            <div class="col-md-12">
-                                <canvas class="chart chart-doughnut" chart-data="incomingLogData.data"
-                                        chart-labels="incomingLogData.labels" chart-colors="doughnut_colors"
-                                        chart-click="onClick"
-                                        chart-options="incomingLogData.option" chart-legend="true">
-                                </canvas>
-                            </div>
-                            <!--<div class="col-md-12">
-                            <ul class="chart-legend clearfix">
-                                <li><i class="fa fa-circle-o text-incoming"></i> Success</li>
-                                <li><i class="fa fa-circle-o text-outgoing"></i> Fail</li>
-                            </ul>
-                            </div>-->
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="box box-info">
-                        <!--<div class="box-header with-border">
-                            <h3 class="box-title">Outgoing Logs </h3>
-                            <div class="col-md-12">
-                            <canvas class="chart chart-doughnut" chart-data="outgoingLogData.data"
-                                    chart-labels="outgoingLogData.labels" chart-colors="doughnut_colors" chart-click="onClick"
-                                    chart-options="outgoingLogData.option" chart-legend="true">
-                            </canvas>
-                            </div>
-                        </div>-->
                         <div class="info-box bg-yellow">
                             <a href="#log/incoming" style="color: white"><span class="info-box-icon"><i class="fa fa-envelope"></i></span></a>
 
                             <div class="info-box-content">
-                                <span class="info-box-number ">{{incomingLogData.rate}}</span>
-                                <span class="info-box-text">Incoming Message</span>
+                                <span class="info-box-number ">565</span>
+                                <span class="info-box-text">Number of Views</span>
 
                                 <div class="progress">
                                     <div class="progress-bar" style="width: 50%"></div>
                                 </div>
-                                <span class="progress-description"> Per {{incomingLogData.rateUnit}} </span>
+                                <span class="progress-description"> Per day </span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -92,81 +45,23 @@
                             <a href="#log/taskflows"  style="color: white"><span class="info-box-icon"><i class="fa fa-send-o"></i></span></a>
 
                             <div class="info-box-content">
-                                <span class="info-box-number ">{{outgoingLogData.rate}}</span>
-                                <span class="info-box-text">Transaction</span>
+                                <span class="info-box-number ">250</span>
+                                <span class="info-box-text">Item Purchased</span>
 
                                 <div class="progress">
                                     <div class="progress-bar" style="width: 50%"></div>
                                 </div>
-                                <span class="progress-description"> Per {{outgoingLogData.rateUnit}} </span>
+                                <span class="progress-description"> Per day </span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-green"><i class="fa fa-home" aria-hidden="true"></i></span>
 
-                        <div class="info-box-content">
-                            <span class="info-box-text">Countries</span>
-                            <span class="info-box-number">{{statistics.countries_count}}</span>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                </div>
-                <!-- /.col -->
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="info-box">
-                        <a href="#operator" style="color: white"> <span class="info-box-icon bg-yellow"><i class="fa fa-mobile" aria-hidden="true"></i></span></a>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text">Operators</span>
-                            <span class="info-box-number">{{statistics.operators_count}}</span>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                </div>
-
-                <!-- /.col -->
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="info-box">
-                        <a href="#subscribers" style="color: white">
-                            <span class="info-box-icon bg-blue"><i class="fa fa-users" aria-hidden="true"></i></span>
-                        </a>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text">Subscribers  <span class="info-box-number">{{subscriberData.totalSubscribers}}</span></span>
-
-
-                            <span class="info-box-small-text">Online : <b>{{subscriberData.onlineSubscribers}}</b></span><br>
-                            <!--<span class="info-box-small-text">Active : <b>{{subscriberData.activeSubscribers}}</b></span>
-                            <span class="info-box-small-text">&nbsp;&nbsp;Inactive :<b> {{subscriberData.inactiveSubscribers}}</b></span>-->
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                </div>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="info-box">
-                        <a href="#cardpool" style="color: white" ><span class="info-box-icon bg-purple"><i class="fa fa-wpforms"></i></span></a>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text">Active &nbsp; <span class="info-box-number ">{{cardData.totalCount}}</span></span>
-                            <span class="info-box-small-text">Ready : <b>{{cardData.unUsedActiveTotal}}</b></span></br>
-                            <span class="info-box-small-text">Used : <b>{{cardData.usedActiveTotal}}</b></span></br>
-                            <span class="info-box-small-text">Pending : <b>{{cardData.waitingActiveTotal}}</b></span>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                </div>
-            </div>
         </div>
+        <div class="clearfix"></div>
+
     </div>
 
 </div>
