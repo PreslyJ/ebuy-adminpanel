@@ -48,8 +48,9 @@
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>Recomended</th>
+                                <th>View</th>
+                                <th>Active</th>
                                 <th>Action</th>
-
                             </tr>
                             </thead>
                             <tbody>
@@ -64,7 +65,9 @@
                                 <td>{{item.price}}</td>
                                 <td>{{item.quantity}}</td>
                                 <td>{{item.recomended}}</td>
-
+                                <td rowspan="{{getRowspanValue(log.cdrFiles)}}">
+                                    <button type="button" class="btn btn-xs btn-info ng-scope" ng-click="viewImage(item.id)">View</button>
+                                </td>
                                 <td>
                                     <div ng-class="{'div-active':subCategory.isActive,'div-inactive':!subCategory.isActive}">
                                         <i class="fa " aria-hidden="true"

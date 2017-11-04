@@ -100,6 +100,9 @@ app.controller('itemController', ['$scope', '$modal','CommonService','dashBoardS
     }
 
     function loadPage(pageNo) {
+        HttpService.getAllSubCategories({"page": pageNo, "size": $scope.pageSize, sort: 'id'}, function (response) {
+             $scope.itemDetails.subCategoryList  = response.content;
+        });
         HttpService.getAllItems({"page": pageNo, "size": $scope.pageSize, sort: 'id'}, function (response) {
             $scope.itemDetails.itemList = response;
             managePagination(response);
@@ -108,16 +111,21 @@ app.controller('itemController', ['$scope', '$modal','CommonService','dashBoardS
 
     var modalAddEdit;
     $scope.itemAddEdit = function (type, value) {
-        var subCategoryAddEditScope = $scope.$new(true);
-        subCategoryAddEditScope.type = type;
-        subCategoryAddEditScope.submitForm = false;
-        subCategoryAddEditScope.subCategoryList = $scope.itemDetails.subCategoryList;
+        var itemAddEditScope = $scope.$new(true);
+        itemAddEditScope.type = type;
+        itemAddEditScope.submitForm = false;
+        itemAddEditScope.subCategoryList = $scope.itemDetails.subCategoryList;
+        itemAddEditScope.img="";
+
+        itemAddEditScope.uploadFile = function(files) {
+            itemAddEditScope.img=files[0];
+        }
 
         if (type == "Edit") {
-            subCategoryAddEditScope.itemDetails = value;
+            itemAddEditScope.itemDetails = value;
         }
         else {
-            subCategoryAddEditScope.itemDetails = {
+            itemAddEditScope.itemDetails = {
                 "name": "",
                 "description": "",
                 "subCategory": {
@@ -135,11 +143,12 @@ app.controller('itemController', ['$scope', '$modal','CommonService','dashBoardS
                 "recomended": true
             }
         }
-        subCategoryAddEditScope.itemSubmit = function () {
-            if (subCategoryAddEditScope.itemDetails.name && subCategoryAddEditScope.itemDetails.category) {
-                HttpService.saveItem(subCategoryAddEditScope.itemDetails, function (response) {
-                    var file = subCategoryAddEditScope.myFile;
-                    var uploadUrl = "http://localhost/ebuy" + '/ebuy-cart-service/cart/uploadItemImage?itemId='+response.id;
+        itemAddEditScope.itemSubmit = function () {
+
+            if (itemAddEditScope.itemDetails.name && itemAddEditScope.itemDetails.subCategory.id>0) {
+                HttpService.saveItem(itemAddEditScope.itemDetails, function (response) {
+                    var file = itemAddEditScope.img;
+                    var uploadUrl = "http://presly:8082" + '/ebuy-cart-service/cart/uploadItemImage?itemId='+response.id;
                     //CommonService.uploadFileToUrl(file, uploadUrl);
                     CommonService.uploadFileToUrl(file, uploadUrl)
                         .success(function () {
@@ -154,16 +163,20 @@ app.controller('itemController', ['$scope', '$modal','CommonService','dashBoardS
                 });
             }
             else {
-                subCategoryAddEditScope.submitForm = true;
+                itemAddEditScope.submitForm = true;
             }
         };
 
         modalAddEdit = $modal({
-            scope: subCategoryAddEditScope,
+            scope: itemAddEditScope,
             templateUrl: "views/product/addEditItem.html",
             show: true,
             backdrop: 'static'
         });
+
+
+
+
 
     };
 
@@ -191,12 +204,39 @@ app.controller('itemController', ['$scope', '$modal','CommonService','dashBoardS
     $scope.deleteItem = function(id){
         $scope.selectedId = id
     };
-    $scope.confirmDelete= function () {
+
+    $scope.confirmDelete = function () {
         HttpService.deleteItem({"id":$scope.selectedId},function (response) {
             loadPage(0)
         })
     };
     int();
 
+    var mapScope;
+    $scope.viewImage = function(id){
+        /* var url="http://maps.google.com/maps?z=12&t=m&q=loc:"+latitude+"+"+longitude;
+    
+         window.open(url,'_blank');*/
 
+        mapScope = $scope.$new(true);
+        mapScope.item={};
+        mapScope.item.id=id;
+        mapScope.item.imgUrl="http://presly:8082/ebuy-cart-service/cart/getImageByTitleId/"+id;
+
+        mapScope.render = true;
+        modal = $modal({scope: mapScope, templateUrl: "views/imageView.html",
+            /*resolve: {
+                lat: function () {
+                    return mapScope.longitude;
+                },
+                lng: function () {
+                    return mapScope.latitude;
+                }
+            },*/
+            show: true,backdrop: 'static'});
+
+/*        NgMap.getMap().then(function (map) {
+            google.maps.event.trigger(map, "resize");
+        });*/
+    };
 }]);

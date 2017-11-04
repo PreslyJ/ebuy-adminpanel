@@ -11,7 +11,7 @@ app.service('HttpService', function($resource, $alert, resourceErrorHandler, hos
         'saveSubCategory':   {url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/cart/saveSubCategory', method:'PUT', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}},
         'getAllItems':   {url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/cart/getAllItems', method:'POST', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}},
         'saveItem':   {url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/cart/saveItem', method:'PUT', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}},
-        'deleteItem': {url :  host.get() +$rootScope.cartPort+'ebuy-cart-service/cart/deleteItem/:id', method:'DELETE', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}}
+        'deleteItem': {url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/cart/deleteItem/:id', method:'DELETE', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}}
 
 
     });
