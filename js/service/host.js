@@ -1,5 +1,5 @@
 app.service('host', function() {
-  var url = "https://sims.kh.techleadintl.com";
+  var url = "http://presly";
 
   return {
 

@@ -5,7 +5,7 @@ app.controller('itemController', ['$scope', '$modal','CommonService','dashBoardS
     $scope.itemDetails.page = 0;
     $scope.pageSize = 20;
     $scope.itemDetails.itemList=[
-        {
+        /*{
             "id": 2,
             "name": "Test",
             "description": "Test",
@@ -62,10 +62,10 @@ app.controller('itemController', ['$scope', '$modal','CommonService','dashBoardS
             "status": "active",
             "featured": true,
             "recomended": true
-        }
+        }*/
     ];
     $scope.itemDetails.subCategoryList = [
-        {
+        /*{
             "id": 1,
             "name": "Baby Toys",
             "description": "Toys for babies",
@@ -84,18 +84,19 @@ app.controller('itemController', ['$scope', '$modal','CommonService','dashBoardS
                 "description": "Items for babies",
                 "id": 2
             }
-        }
+        }*/
     ];
     function managePagination(itemDetails) {
+        $scope.itemDetails.itemList=itemDetails.content;
         $scope.itemDetails.totalPages = itemDetails.totalPages;
         $scope.itemDetails.isFirstPage = itemDetails.first;
         $scope.itemDetails.isLastPage = itemDetails.last;
         $scope.itemDetails.page = itemDetails.number;
         $scope.itemDetails.pagination = [];
         if ($scope.itemDetails.totalPages > 1) {
-            $scope.itemDetails.pagination = itemDetails.generatePagination($scope.itemDetails.totalPages, $scope.itemDetails.page);
+            $scope.itemDetails.pagination = CommonService.generatePagination($scope.itemDetails.totalPages, $scope.itemDetails.page);
         }
-        $scope.itemDetails.limitStart = itemDetails.checkLimitStart($scope.itemDetails.page, $scope.itemDetails.pagination.length);
+        $scope.itemDetails.limitStart = CommonService.checkLimitStart($scope.itemDetails.page, $scope.itemDetails.pagination.length);
     }
 
     function loadPage(pageNo) {
@@ -191,7 +192,7 @@ app.controller('itemController', ['$scope', '$modal','CommonService','dashBoardS
         $scope.selectedId = id
     };
     $scope.confirmDelete= function () {
-        HttpService.deleteCategory({"id":$scope.selectedId},function (response) {
+        HttpService.deleteItem({"id":$scope.selectedId},function (response) {
             loadPage(0)
         })
     };

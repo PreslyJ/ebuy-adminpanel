@@ -18,7 +18,7 @@ module.exports = function(grunt) {
                     "js/directive/export-table.js",
                     "js/directive/num-only.js",
                     "js/directive/spec-char-removal.js",
-
+                    "js/service/paginationService.js",
 
                 ],
                 dest: "js/sims.concat.js",

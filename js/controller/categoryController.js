@@ -7,29 +7,30 @@ app.controller('categoryController', ['$scope', '$modal', 'CommonService', 'dash
         $scope.categoryDetails.page = 0;
         $scope.pageSize = 20;
         $scope.categoryDetails.categoryList = [
-            {
-                "name": "Baby Toys",
-                "description": "Toys for babies",
-                "isActive":true,
-                "id": 1
-            },
-            {
-                "name": "Baby Toys",
-                "description": "Toys for babies",
-                "isActive":false,
-                "id": 1
-            }
+            // {
+            //     "name": "Baby Toys",
+            //     "description": "Toys for babies",
+            //     "isActive":true,
+            //     "id": 1
+            // },
+            // {
+            //     "name": "Baby Toys",
+            //     "description": "Toys for babies",
+            //     "isActive":false,
+            //     "id": 1
+            // }
         ];
         function managePagination(categoryDetails) {
+            $scope.categoryDetails.categoryList=categoryDetails.content;
             $scope.categoryDetails.totalPages = categoryDetails.totalPages;
             $scope.categoryDetails.isFirstPage = categoryDetails.first;
             $scope.categoryDetails.isLastPage = categoryDetails.last;
             $scope.categoryDetails.page = categoryDetails.number;
             $scope.categoryDetails.pagination = [];
             if ($scope.categoryDetails.totalPages > 1) {
-                $scope.categoryDetails.pagination = categoryDetails.generatePagination($scope.categoryDetails.totalPages, $scope.categoryDetails.page);
+                $scope.categoryDetails.pagination = CommonService.generatePagination($scope.categoryDetails.totalPages, $scope.categoryDetails.page);
             }
-            $scope.categoryDetails.limitStart = categoryDetails.checkLimitStart($scope.categoryDetails.page, $scope.categoryDetails.pagination.length);
+            $scope.categoryDetails.limitStart = CommonService.checkLimitStart($scope.categoryDetails.page, $scope.categoryDetails.pagination.length);
         }
 
         function loadPage(pageNo) {

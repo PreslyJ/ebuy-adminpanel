@@ -6,7 +6,7 @@ app.controller('subCategoryController', ['$scope', '$modal','CommonService','das
     $scope.subCategoryDetails.page = 0;
     $scope.pageSize = 20;
     $scope.subCategoryDetails.categoryList = [
-        {
+        /*{
             "name": "Baby Toys",
             "description": "Toys for babies",
             "isActive":true,
@@ -17,10 +17,10 @@ app.controller('subCategoryController', ['$scope', '$modal','CommonService','das
             "description": "Toys for babies",
             "isActive":false,
             "id": 2
-        }
+        }*/
     ];
     $scope.subCategoryDetails.subCategoryList = [
-        {          "id": 1,
+       /* {          "id": 1,
             "name": "Baby Toys",
             "description": "Toys for babies",
             "category": {
@@ -37,25 +37,31 @@ app.controller('subCategoryController', ['$scope', '$modal','CommonService','das
                 "description": "Items for babies",
                 "id": 2
             }
-        }
+        }*/
     ];
     function managePagination(subCategoryDetails) {
+        $scope.subCategoryDetails.subCategoryList=subCategoryDetails.content;
         $scope.subCategoryDetails.totalPages = subCategoryDetails.totalPages;
         $scope.subCategoryDetails.isFirstPage = subCategoryDetails.first;
         $scope.subCategoryDetails.isLastPage = subCategoryDetails.last;
         $scope.subCategoryDetails.page = subCategoryDetails.number;
         $scope.subCategoryDetails.pagination = [];
         if ($scope.subCategoryDetails.totalPages > 1) {
-            $scope.subCategoryDetails.pagination = subCategoryDetails.generatePagination($scope.subCategoryDetails.totalPages, $scope.subCategoryDetails.page);
+            $scope.subCategoryDetails.pagination = CommonService.generatePagination($scope.subCategoryDetails.totalPages, $scope.subCategoryDetails.page);
         }
-        $scope.subCategoryDetails.limitStart = subCategoryDetails.checkLimitStart($scope.subCategoryDetails.page, $scope.subCategoryDetails.pagination.length);
+        $scope.subCategoryDetails.limitStart = CommonService.checkLimitStart($scope.subCategoryDetails.page, $scope.subCategoryDetails.pagination.length);
     }
 
     function loadPage(pageNo) {
-        HttpService.getAllCategories({"page": pageNo, "size": $scope.pageSize, sort: 'id'}, function (response) {
-            $scope.subCategoryDetails.subCategoryList = response;
+        HttpService.getAllSubCategories({"page": pageNo, "size": $scope.pageSize, sort: 'id'}, function (response) {
+            //$scope.subCategoryDetails.subCategoryList = response;
             managePagination(response);
+        });
+
+        HttpService.getAllCategories({"page": pageNo, "size": $scope.pageSize, sort: 'id'}, function (response) {
+           $scope.subCategoryDetails.categoryList =  response.content;
         })
+
     }
 
     var modalAddEdit;

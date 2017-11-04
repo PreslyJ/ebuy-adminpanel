@@ -8,6 +8,9 @@ app.run(['$rootScope', '$route', '$alert', 'socketService', '$window', '$cookies
     function ($rootScope, $route, $alert, socketService, $window, $cookies, $location, $http, dashBoardService,authManager,localStorageService,jwtHelper) {
 
 
+        $rootScope.cartPort=':8082';
+        $rootScope.loginPort=':8081';
+
         authManager.redirectWhenUnauthenticated();
         $http.get('version.txt').then(function (res) {
             $rootScope.version = res.data;
@@ -212,7 +215,7 @@ app.run(['$rootScope', '$route', '$alert', 'socketService', '$window', '$cookies
                 "mainMenu": "Category",
                 "route": "#/category",
                 "active": true,
-                "icon": "fa-dashboard",
+                "icon": "fa-table",
                 "subMenuActive": false,
                 "subMenu": [],
                 "originalPath": '/category'
@@ -221,7 +224,7 @@ app.run(['$rootScope', '$route', '$alert', 'socketService', '$window', '$cookies
                 "mainMenu": "Sub-Category",
                 "route": "#/sub-category",
                 "active": true,
-                "icon": "fa-dashboard",
+                "icon": "fa-table",
                 "subMenuActive": false,
                 "subMenu": [],
                 "originalPath": '/sub-category'
@@ -230,7 +233,7 @@ app.run(['$rootScope', '$route', '$alert', 'socketService', '$window', '$cookies
                 "mainMenu": "Item",
                 "route": "#/item",
                 "active": true,
-                "icon": "fa-dashboard",
+                "icon": "fa-table",
                 "subMenuActive": false,
                 "subMenu": [],
                 "originalPath": '/item'
@@ -239,7 +242,7 @@ app.run(['$rootScope', '$route', '$alert', 'socketService', '$window', '$cookies
                 "mainMenu": "Stock Report",
                 "route": "#/stock-report",
                 "active": true,
-                "icon": "fa-dashboard",
+                "icon": "fa-line-chart",
                 "subMenuActive": false,
                 "subMenu": [],
                 "originalPath": '/stock-report'
@@ -248,7 +251,7 @@ app.run(['$rootScope', '$route', '$alert', 'socketService', '$window', '$cookies
                 "mainMenu": "Credit Report",
                 "route": "#/credit-report",
                 "active": true,
-                "icon": "fa-dashboard",
+                "icon": "fa-file-text-o",
                 "subMenuActive": false,
                 "subMenu": [],
                 "originalPath": '/credit-report'
