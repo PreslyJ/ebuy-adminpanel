@@ -36,7 +36,7 @@ app.controller('loginController', ['$scope', '$http', '$cookies', '$location', '
 
         var http = {
             method: 'POST',
-            url: "https://sims.kh.techleadintl.com:8086/sims-login-service/login",
+            url: "http://127.0.0.1:8081/ebuy-login-service/login",
             data: param,
             skipAuthorization: true,
             contentType: "text/plain",

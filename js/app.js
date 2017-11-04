@@ -487,7 +487,7 @@ app.config(['$resourceProvider', '$alertProvider', 'cfpLoadingBarProvider', '$ht
                     console.log("ExpireDate "+jwtHelper.getTokenExpirationDate(token));
                     console.log(jwtHelper.getTokenExpirationDate(token));
                     return $http({
-                        url: 'https://sims.kh.techleadintl.com:8086/sims-login-service/getAuthToken',
+                        url: 'http://presly:8081/ebuy-login-service/getAuthToken',
                         skipAuthorization: true,
                         method: 'POST',
                         contentType: "text/plain",
