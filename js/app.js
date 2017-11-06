@@ -4,8 +4,8 @@ var app = angular.module("ebuy", ['ngRoute', 'mgcrea.ngStrap', 'ngResource', 'ng
 
 
 
-app.run(['$rootScope', '$route', '$alert', 'socketService', '$window', '$cookies', '$location', '$http', 'dashBoardService','authManager','localStorageService','jwtHelper',
-    function ($rootScope, $route, $alert, socketService, $window, $cookies, $location, $http, dashBoardService,authManager,localStorageService,jwtHelper) {
+app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', '$http', 'dashBoardService','authManager','localStorageService','jwtHelper',
+    function ($rootScope, $route, $alert,  $window, $cookies, $location, $http, dashBoardService,authManager,localStorageService,jwtHelper) {
 
 
         $rootScope.cartPort=':8082';
@@ -26,74 +26,6 @@ app.run(['$rootScope', '$route', '$alert', 'socketService', '$window', '$cookies
         $rootScope.notifications.messageList = [];
         $rootScope.robotConfig = {};
         'use strict';
-
-        $rootScope.online = {
-            "imei": "",
-            "status": false
-        };
-        $rootScope.busy = {
-            "imei": "",
-            "status": false
-        };
-
-        socketService.on('feed', function (data) {
-
-
-            var Alert = {};
-
-            var content = {};
-
-            function JSONParser(valueSet) {
-                try {
-                    return JSON.parse(valueSet);
-                } catch (e) {
-                    return false;
-                }
-                return true;
-            };
-
-            content.message = JSONParser(data).logContent;
-            content.time = JSONParser(data).trnDate;
-
-            if (JSONParser(data)) {
-                if (JSONParser(data).type === 'alert') {
-                    console.log(JSONParser(data));
-                    $rootScope.notifications.alertCount = $rootScope.notifications.alertCount + 1;
-                }
-            }
-            Alert.content = JSON.stringify(content);
-            Alert.type = 'info';
-            Alert.title = "Notification\n";
-            $rootScope.effectedIMEI = JSONParser(data).imei || '';
-
-            if (JSONParser(data).hasOwnProperty("processId")) {
-
-                if (JSONParser(data).processId == -1) {
-                    $rootScope.online.imei = JSONParser(data).imei;
-                    $rootScope.online.status = true;
-
-                }
-                else if (JSONParser(data).processId == -2) {
-                    $rootScope.online.imei = JSONParser(data).imei;
-                    $rootScope.online.status = false;
-
-                }
-                else if (JSONParser(data).processId == -3) {
-                    $rootScope.busy.imei = JSONParser(data).imei;
-                    $rootScope.busy.status = true;
-
-                } else if (JSONParser(data).processId == -4) {
-                    $rootScope.busy.imei = JSONParser(data).imei;
-                    $rootScope.busy.status = false;
-
-                }else {
-                    $alert(Alert);
-                }
-
-            }
-
-
-        });
 
         function loadNotificationData() {
             if(localStorageService.get("id_token")){
@@ -573,29 +505,4 @@ app.filter('prettyJSON', function () {
     }
     return prettyPrintJson;
 });
-/*app.factory('authService', ['$http', '$q', '$window',
-    function($http, $q, $window) {
-        const storage = $window.localStorage;
-        var cacheToken = {};
-        return {
-            getAuthorizationHeader() {
-                if (cacheToken.access_token && cacheToken.expires_on > moment(new Date().getTime()).unix()) {
-                    return $q.when({'Authorization': 'Bearer ' + cacheToken.access_token});
-                } else {
-                    cacheToken.access_token = storage.getItem('access_token');
-                    cacheToken.refresh_token = storage.getItem('refresh_token');
-                    cacheToken.expires_on = storage.getItem('expires_on');
-                    if (cacheToken.access_token && cacheToken.expires_on > moment(new Date().getTime()).unix()) {
-                        return $q.when({'Authorization': 'Bearer ' + cacheToken.access_token});
-                    } else {
-                        return $http.post('/refreshToken', {'token': cacheToken.refresh_token}).then(
 
-                        return {'Authorization': 'Bearer ' + cacheToken.access_token}
-
-                    );
-                    }
-                }
-            }
-        }
-    }
-])*/

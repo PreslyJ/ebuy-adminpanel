@@ -1,19 +1,6 @@
 app.controller('dashboardController', ['$scope', '$timeout', '$rootScope', 'localStorageService', function ($scope, $timeout, $rootScope, localStorageService) {
 
-    $scope.incomingMessage = [
-        {label: "Success", value: 125},
-        {label: "Fail", value: 23}
-    ];
-    $scope.outgoingMessage = [
-        {label: "Success", value: 225},
-        {label: "Fail", value: 20}
-    ];
-    $scope.operatorWiseSubscriber = [
-        {y: "SMART", a: 5, b: 100},
-        {y: "CUGSM", a: 10, b: 65},
-        {y: "MOBITEL", a: 8, b: 80},
-        {y: "HUTCH", a: 75, b: 65}
-    ];
+
     $rootScope.loginUserName = localStorageService.get("user_fname") + " " + localStorageService.get("user_lname");
 
     $scope.labels = ["Incoming", "Outgoing"];
@@ -22,14 +9,6 @@ app.controller('dashboardController', ['$scope', '$timeout', '$rootScope', 'loca
 
     //operator lable list
     $scope.bar_labels = [];
-
-    $scope.bar_series = ['Active', 'Inactive'];
-
-    $scope.bar_data = [
-        [65, 59, 80, 81, 56, 55, 40, 56, 55, 40, 5, 80, 85],
-        [28, 48, 40, 19, 86, 27, 90, 23, 10, 65, 50, 30, 25]
-    ];
-
 
         $scope.subscriberData = {
             "totSubscribersOpwise": [

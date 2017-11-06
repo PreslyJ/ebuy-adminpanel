@@ -1,6 +1,6 @@
 app.factory('socketService', function(socketFactory, $rootScope) {
 
-      var socket = io(window.location.origin, {path:'/sims-feeder/socket.io', transports:["websocket"]});
+     /* var socket = io(window.location.origin, {path:'/sims-feeder/socket.io', transports:["websocket"]});
 
       return {
         on: function (eventName, callback) {
@@ -11,5 +11,5 @@ app.factory('socketService', function(socketFactory, $rootScope) {
             });
           });
         }
-      };
+      };*/
 });
