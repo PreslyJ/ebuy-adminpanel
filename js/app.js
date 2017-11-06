@@ -481,7 +481,7 @@ app.config(['$resourceProvider', '$alertProvider', 'cfpLoadingBarProvider', '$ht
         //angular jwt Authorization handling
         jwtOptionsProvider.config({
             authPrefix: '',
-            whiteListedDomains: [window.location.hostname,"sims.kh.techleadintl.com","192.168.1.50","192.168.9.227","192.168.9.236","localhost"],
+            whiteListedDomains: [window.location.hostname,"presly","localhost"],
             tokenGetter: ['jwtHelper','CommonService','$http','$rootScope','$location', function (jwtHelper,CommonService,$http,$rootScope,$location) {
 
                 var token = localStorage.getItem('ls.id_token');

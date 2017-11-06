@@ -79,6 +79,7 @@ app.controller('subCategoryController', ['$scope', '$modal','CommonService','das
                 "name": "",
                 "description": "",
                 "isActive": true,
+                "status":"active",
                 "category":{
                     "id":""
                 }

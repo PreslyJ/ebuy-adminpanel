@@ -53,6 +53,7 @@ app.controller('categoryController', ['$scope', '$modal', 'CommonService', 'dash
                 categoryAddEditScope.categoryDetails = {
                     "name": "",
                     "description": "",
+                    "status":"active",
                     "isActive": true
                 }
             }

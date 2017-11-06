@@ -69,9 +69,9 @@
                                     <button type="button" class="btn btn-xs btn-info ng-scope" ng-click="viewImage(item.id)">View</button>
                                 </td>
                                 <td>
-                                    <div ng-class="{'div-active':subCategory.isActive,'div-inactive':!subCategory.isActive}">
+                                     <div ng-class="{'div-active': item.status == 'active','div-inactive':item.status != 'active'}">
                                         <i class="fa " aria-hidden="true"
-                                           ng-class="{'fa-check-circle':subCategory.isActive,'fa-times-circle':!subCategory.isActive}"></i>
+                                           ng-class="{'fa-check-circle':item.status == 'active','fa-times-circle':item.status != 'active'}"></i>
                                     </div>
                                 </td>
                                 <td>

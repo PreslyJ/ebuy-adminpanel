@@ -53,9 +53,9 @@
                                 <td>{{category.name}}</td>
                                 <td>{{category.description}}</td>
                                 <td>
-                                    <div ng-class="{'div-active':category.isActive,'div-inactive':!category.isActive}">
+                                    <div ng-class="{'div-active': category.status == 'active','div-inactive':category.status != 'active'}">
                                         <i class="fa " aria-hidden="true"
-                                           ng-class="{'fa-check-circle':category.isActive,'fa-times-circle':!category.isActive}"></i>
+                                           ng-class="{'fa-check-circle':category.status == 'active','fa-times-circle':category.status != 'active'}"></i>
                                     </div>
                                 </td>
                                 <td>
