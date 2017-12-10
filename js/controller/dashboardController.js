@@ -1,7 +1,4 @@
-app.controller('dashboardController', ['$scope', '$timeout', '$rootScope', 'localStorageService', function ($scope, $timeout, $rootScope, localStorageService) {
-
-
-    $rootScope.loginUserName = localStorageService.get("user_fname") + " " + localStorageService.get("user_lname");
+app.controller('dashboardController', ['$scope','HttpService', function ($scope,HttpService) {
 
     $scope.labels = ["Incoming", "Outgoing"];
     $scope.data = [300, 500];
@@ -12,7 +9,7 @@ app.controller('dashboardController', ['$scope', '$timeout', '$rootScope', 'loca
 
         $scope.subscriberData = {
             "totSubscribersOpwise": [
-                {
+                { 
                     "activeCount": 8,
                     "onlineCount": 3,
                     "opId": 2,
@@ -41,11 +38,11 @@ app.controller('dashboardController', ['$scope', '$timeout', '$rootScope', 'loca
         };
 
     $scope.subscriberData.chart = {};
-    $scope.subscriberData.chart.labels = ["ToyCat1", "ToyCat2","ToyCat3","ToyCat4","ToyCat5","ToyCat6"];
+    $scope.subscriberData.chart.labels = [/*"ToyCat1", "ToyCat2","ToyCat3","ToyCat4","ToyCat5","ToyCat6"*/];
     $scope.subscriberData.chart.data = [];
     $scope.subscriberData.chart.colors = ['#00ADF9', '#949FB1'];
-    $scope.subscriberData.chart.data[0] = [100.20,60,10,120,80];
-    $scope.subscriberData.chart.data[1] = [20,80,50,40,10,50,70];
+    $scope.subscriberData.chart.data[0] = [/*100.20,60,10,120,80*/];
+    $scope.subscriberData.chart.data[1] = [5,0,0,0,3,0,5];
     $scope.subscriberData.chart.series = ['In Stock', 'Purchased'];
     $scope.subscriberData.chart.option = {legend: {display: true}};
 
@@ -91,6 +88,23 @@ app.controller('dashboardController', ['$scope', '$timeout', '$rootScope', 'loca
 
 
 
+    function loadPage(pageNo) {
+       HttpService.getAllItems({ sort: 'name'},{}, function (response) {
+             var itemNames=[];
+             var inStock=[];
+             response.content.forEach(function(item){
+                itemNames.push(item.name);
+                inStock.push(item.quantity);
+             });
+             $scope.subscriberData.chart.data[0]=inStock;
+             $scope.subscriberData.chart.labels=itemNames;
+        })
+    }
 
+    function init() {
+        loadPage();
+    }
+
+    init();
 
 }]);

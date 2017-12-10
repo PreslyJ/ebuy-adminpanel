@@ -1,5 +1,5 @@
-app.controller('loginController', ['$scope', '$http', '$cookies', '$location', '$rootScope','localStorageService','dashBoardService',
-    function ($scope, $http, $cookies, $location, $rootScope,localStorageService,dashBoardService) {
+app.controller('loginController', ['$scope', '$http', '$cookies', '$location', '$rootScope','localStorageService',
+    function ($scope, $http, $cookies, $location, $rootScope,localStorageService) {
     // $('.header').hide();
     // $('.left-side ').hide();
 

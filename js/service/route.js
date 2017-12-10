@@ -10,6 +10,14 @@ app.config(function($routeProvider, $locationProvider) {
 
           }
         })
+        .when('/customer', {
+            title: 'customer',
+            templateUrl: 'views/customers/customers.html',
+            controller: 'customersController',
+            resolve: {
+
+          }
+        })        
         .when('/product', {
             title: 'Product',
             templateUrl: 'views/product/product.html',
@@ -63,6 +71,15 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: 'login/login.html',
             controller: 'loginController',
         })
+        .when('/stockItem', {
+            title: 'stockItem',
+            templateUrl: 'views/product/stockItem.html',
+            controller: 'stockItemController',
+            resolve: {
+
+            }
+        })
+
         // If 404
         .otherwise({
             redirectTo: '/'

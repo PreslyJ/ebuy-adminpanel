@@ -1,5 +1,5 @@
-app.controller('logController', ['$scope', 'Logs', 'LogService', '$routeParams', 'PaginationService', 'SubscriberService', 'TemplateService', 'OperatorService','CommonService','$location','ReportService','$modal','NgMap','$timeout','$rootScope','dashBoardService',
-    function ($scope, Logs, LogService, $routeParams, PaginationService, SubscriberService, TemplateService, OperatorService,CommonService,$location,ReportService,$modal,NgMap,$timeout,$rootScope,dashBoardService) {
+app.controller('logController', ['$scope', 'Logs', 'LogService', '$routeParams', 'PaginationService', 'SubscriberService', 'TemplateService', 'OperatorService','CommonService','$location','ReportService','$modal','NgMap','$timeout','$rootScope',
+    function ($scope, Logs, LogService, $routeParams, PaginationService, SubscriberService, TemplateService, OperatorService,CommonService,$location,ReportService,$modal,NgMap,$timeout,$rootScope) {
 
         $scope.pageSize = 20;
         $scope.outPageSize = 20;

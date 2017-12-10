@@ -1,5 +1,5 @@
 {
-  "name": "sims-template-frontend",
+  "name": "ebuy-adminpanel",
   "version": "0.0.0",
   "description": "",
   "main": "Gruntfile.js",
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@bitbucket.org:TechLeadInt/sims-template-frontend.git"
+    "url": ""
   },
   "author": "",
   "license": "BSD-2-Clause"

@@ -4,8 +4,8 @@ var app = angular.module("ebuy", ['ngRoute', 'mgcrea.ngStrap', 'ngResource', 'ng
 
 
 
-app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', '$http', 'dashBoardService','authManager','localStorageService','jwtHelper',
-    function ($rootScope, $route, $alert,  $window, $cookies, $location, $http, dashBoardService,authManager,localStorageService,jwtHelper) {
+app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', '$http','authManager','localStorageService','jwtHelper',
+    function ($rootScope, $route, $alert,  $window, $cookies, $location, $http, authManager,localStorageService,jwtHelper) {
 
 
         $rootScope.cartPort=':8082';
@@ -27,24 +27,6 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
         $rootScope.robotConfig = {};
         'use strict';
 
-        function loadNotificationData() {
-            if(localStorageService.get("id_token")){
-
-                dashBoardService.alertInfo(function (response) {
-                    $rootScope.notifications.alertCount = response.alertCount;
-                });
-
-                dashBoardService.findAlerts({"page": 0, "size": 10,sort: 'eventDate,desc'}, function (response) {
-                    $rootScope.notifications.alertList = response.content;
-                    $rootScope.notifications.alert = response;
-                });
-                dashBoardService.findAutomaticScheduler(function (response) {
-                    $rootScope.automaticStatus = response.automaticStatus;
-                });
-            }
-
-
-        }
 
         function selectMainMenu(index) {
             if ($rootScope.menuList[index].active && $rootScope.menuList[index].subMenuActive) {
@@ -144,6 +126,15 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
                 "originalPath": '/'
             },
             {
+                "mainMenu": "customer",
+                "route": "#/customer",
+                "active": true,
+                "icon": "fa-table",
+                "subMenuActive": false,
+                "subMenu": [],
+                "originalPath": '/customer'
+            },
+            {
                 "mainMenu": "Category",
                 "route": "#/category",
                 "active": true,
@@ -171,22 +162,29 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
                 "originalPath": '/item'
             },
             {
-                "mainMenu": "Stock Report",
-                "route": "#/stock-report",
-                "active": true,
-                "icon": "fa-line-chart",
+                "mainMenu": "Reports",
+                "route": "javascript:void(0);",
+                "active": false,
+                "icon": "fa fa-file-text-o",
                 "subMenuActive": false,
-                "subMenu": [],
-                "originalPath": '/stock-report'
-            },
-            {
-                "mainMenu": "Credit Report",
-                "route": "#/credit-report",
-                "active": true,
-                "icon": "fa-file-text-o",
-                "subMenuActive": false,
-                "subMenu": [],
-                "originalPath": '/credit-report'
+                "subMenu": [
+                    {
+                        "title": "Stock Report",
+                        "route": "#/stock-report",
+                        "active": false,
+                        "icon": "fa-line-chart",
+                        "originalPath": '/stock-report'
+                    },
+                    {
+                        "title": "Credit Report",
+                        "route": "#/credit-report",
+                        "active": false,
+                        "icon": "fa-file-text-o",
+                        "originalPath": '/credit-report'
+                    }
+
+                ],
+                "originalPath": '/report'
             }
 
         ];
@@ -257,82 +255,7 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
             }
 
         };
-        function getAlerts(page, type) {
-            dashBoardService.findAlerts({"page": page, "size": 10, sort: 'eventDate,desc'}, function (response) {
-                $rootScope.notifications.alertList = $rootScope.notifications.alertList.concat(response.content);
-                $rootScope.notifications.alert = response;
-                if (page < response.totalPages - 1) {
-                    $rootScope.displayMoreOption = true;
-                }
-                else {
-                    $rootScope.displayMoreOption = false;
-                }
-                if (type === "more") {
-                    $('li.dropdown.messages-menu.alert-option').toggleClass("open");
-                }
-            });
-        }
 
-        $rootScope.loadAlerts = function () {
-            getAlerts(0);
-        };
-        function loadMessage(page, type) {
-
-        }
-
-
-        $rootScope.loadMessageAlerts = function () {
-            loadMessage(0);
-        };
-        $rootScope.alertNavigation = function (alert) {
-            var req = {};
-            req.actionTaken = "";
-            req.attendedUser = 1;
-            req.subscriberEvent = {
-                "id": alert.id
-            };
-            var step =0;
-            if(alert.step){
-                step = alert.step;
-            }
-
-           /* dashBoardService.saveEventAction(req, function (response) {
-                //$rootScope.notifications.alertCount = $rootScope.notifications.alertCount - 1;
-            });*/
-
-            //$location.path("/subscribers/" + alert.subscriber.imei + "/event");
-            if(alert.event === 'CDR'){
-                $location.path("/log/cdr/" + alert.processId);
-            }
-            else if(alert.sbsTransactionId && alert.sbsTransactionId !=0 ) {
-            }
-
-            /*$location.path("/taskflows/" + alert.id);*/
-
-        };
-        $rootScope.messageLogNavigation = function (message) {
-            $location.path("/log/incoming/" + message.id);
-        };
-        $rootScope.loadNextAlert = function () {
-            $('li.dropdown.messages-menu.alert-option').toggleClass("open");
-            var nextPage = $rootScope.notifications.alert.number + 1;
-            getAlerts(nextPage, 'more');
-        };
-        $rootScope.loadNextMessages = function () {
-            $('li.dropdown.messages-menu.message').toggleClass("open");
-            var nextPage = $rootScope.notifications.message.number + 1;
-            loadMessage(nextPage, 'more');
-        };
-        $rootScope.changeSchedule = function (status) {
-            $rootScope.automaticStatus = status;
-
-            var req = {};
-            req.automaticStatus = $rootScope.automaticStatus;
-            req.userId = 1; // $cookies.get("loginUser");
-            dashBoardService.saveAutomaticScheduler(req, function (response) {
-                $rootScope.automaticStatus = response.automaticStatus;
-            });
-        };
         $rootScope.getHexValue = function (value) {
             if (value) {
                 var hexa = parseInt(value).toString(16).toUpperCase();
@@ -352,19 +275,6 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
                 return "bottom";
             }
         };
-        /*$rootScope.getRobotConfig = function () {
-         dashBoardService.getRobotConfig( function (response) {
-         $rootScope.robotConfig = response;
-         });
-         };
-         $rootScope.saveConfiguration = function (req) {
-
-         dashBoardService.saveRobotConfig(req, function (response) {
-
-         });
-
-         }
-         */
 
         // handle route changes without loading controller
         var original = $location.path;
@@ -379,6 +289,7 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
             return original.apply($location, [path]);
         };
     }]);
+
 app.config(['$resourceProvider', '$alertProvider', 'cfpLoadingBarProvider', '$httpProvider', '$compileProvider', '$popoverProvider', 'jwtOptionsProvider',
     function ($resourceProvider, $alertProvider, cfpLoadingBarProvider, $httpProvider, $compileProvider, $popoverProvider,jwtOptionsProvider) {
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|javascript):/);
@@ -442,27 +353,7 @@ app.config(['$resourceProvider', '$alertProvider', 'cfpLoadingBarProvider', '$ht
                         return token;
                     });
 
-                    /*var http = {
-                        url: 'https://192.168.1.50:8086/sims-login-service/getAuthToken',
-                        skipAuthorization: true,
-                        method: 'POST',
-                        contentType: "text/plain",
-                        headers:{'refresh':refreshToken.replace(/^"(.*)"$/, '$1')},
-                        ignoreLoadingBar: true,
-                        transformResponse : function(data, headersGetter, status){
-                            data = headersGetter();
-                            return data;
-                        }
-                    };
-                    $http(http)
-                        .success(function (response) {
-                            localStorage.setItem("ls.id_token",response.data.authorization);
-                            token = response.data.authorization;
-                            token = token.replace(/^"(.*)"$/, '$1');
-                            return token;
-                        }).error(function (response) {
-                            console.log(response);
-                    });*/
+
 
                     return token;
                 } else if(token  && !isValidToken(jwtHelper.decodeToken(token).exp*1000)  && !jwtHelper.isTokenExpired(refreshToken)) {

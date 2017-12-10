@@ -1,25 +1,14 @@
-app.controller('categoryController', ['$scope', '$modal', 'CommonService', 'dashBoardService', 'HttpService',
-    function ($scope, $modal, CommonService, dashBoardService, HttpService) {
+app.controller('categoryController', ['$scope', '$modal', 'CommonService',  'HttpService',
+    function ($scope, $modal, CommonService,  HttpService) {
 
 
         $scope.categoryDetails = {};
         $scope.categoryDetails.catogoryList = [];
         $scope.categoryDetails.page = 0;
         $scope.pageSize = 20;
-        $scope.categoryDetails.categoryList = [
-            // {
-            //     "name": "Baby Toys",
-            //     "description": "Toys for babies",
-            //     "isActive":true,
-            //     "id": 1
-            // },
-            // {
-            //     "name": "Baby Toys",
-            //     "description": "Toys for babies",
-            //     "isActive":false,
-            //     "id": 1
-            // }
-        ];
+        $scope.categoryDetails.categoryList = [];
+
+        
         function managePagination(categoryDetails) {
             $scope.categoryDetails.categoryList=categoryDetails.content;
             $scope.categoryDetails.totalPages = categoryDetails.totalPages;

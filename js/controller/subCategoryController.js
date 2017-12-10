@@ -1,5 +1,5 @@
-app.controller('subCategoryController', ['$scope', '$modal','CommonService','dashBoardService','HttpService',
-    function ($scope, $modal,  CommonService,dashBoardService,HttpService) {
+app.controller('subCategoryController', ['$scope', '$modal','CommonService','HttpService',
+    function ($scope, $modal,  CommonService,HttpService) {
 
     $scope.subCategoryDetails = {};
     $scope.subCategoryDetails.catogoryList = [];

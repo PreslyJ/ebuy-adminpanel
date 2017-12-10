@@ -1,5 +1,5 @@
-app.controller('reportController', ['$scope', '$modal', 'CommonService', 'dashBoardService', 'HttpService',
-    function ($scope, $modal, CommonService, dashBoardService, HttpService) {
+app.controller('reportController', ['$scope', '$modal', 'CommonService', 'HttpService',
+    function ($scope, $modal, CommonService,  HttpService) {
 
 
         $scope.productDetails = {};
