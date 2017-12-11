@@ -162,6 +162,15 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
                 "originalPath": '/item'
             },
             {
+                "mainMenu": "Stock In",
+                "route": "#/stockItem",
+                "active": true,
+                "icon": "fa-table",
+                "subMenuActive": false,
+                "subMenu": [],
+                "originalPath": '/stockItem'
+            },
+            {
                 "mainMenu": "Reports",
                 "route": "javascript:void(0);",
                 "active": false,

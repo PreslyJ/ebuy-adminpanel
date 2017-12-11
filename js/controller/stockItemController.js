@@ -22,29 +22,29 @@ app.controller('stockItemController', ['$scope', '$modal','CommonService','HttpS
     }
 
     function loadPage(pageNo) {
-        HttpService.getAllSubCategories({"page": pageNo, "size": $scope.pageSize, sort: 'id'}, function (response) {
-            //$scope.stockItems.subCategoryList = response;
+
+        HttpService.getAllStockItems({"page": pageNo, "size": $scope.pageSize, sort: 'id'}, {} , function (response) {
             managePagination(response);
         });
 
-        HttpService.getAllCategories({"page": pageNo, "size": $scope.pageSize, sort: 'id'}, function (response) {
-           $scope.stockItems.categoryList =  response.content;
+        HttpService.getAllItems({}, {} , function (response) {
+           $scope.stockItems.itemsList =  response.content;
         })
 
     }
 
     var modalAddEdit;
-    $scope.subCategoryAddEdit = function (type, value) {
-        var subCategoryAddEditScope = $scope.$new(true);
-        subCategoryAddEditScope.type = type;
-        subCategoryAddEditScope.submitForm = false;
-        subCategoryAddEditScope.categoryList = $scope.stockItems.categoryList;
+    $scope.stockItemAddEdit = function (type, value) {
+        var stockItemsAddEditScope = $scope.$new(true);
+        stockItemsAddEditScope.type = type;
+        stockItemsAddEditScope.submitForm = false;
+        stockItemsAddEditScope.itemsList = $scope.stockItems.itemsList;
 
         if (type == "Edit") {
-            subCategoryAddEditScope.stockItems = value;
+            stockItemsAddEditScope.stockItems = value;
         }
         else {
-            subCategoryAddEditScope.stockItems = {
+            stockItemsAddEditScope.stockItems = {
                 "name": "",
                 "description": "",
                 "isActive": true,
@@ -54,21 +54,21 @@ app.controller('stockItemController', ['$scope', '$modal','CommonService','HttpS
                 }
             }
         }
-        subCategoryAddEditScope.subCategorySubmit = function () {
-            if (subCategoryAddEditScope.stockItems.name && subCategoryAddEditScope.stockItems.category) {
-                HttpService.saveSubCategory(subCategoryAddEditScope.stockItems, function (response) {
+        stockItemsAddEditScope.subCategorySubmit = function () {
+            if (stockItemsAddEditScope.stockItems.name && stockItemsAddEditScope.stockItems.category) {
+                HttpService.saveSubCategory(stockItemsAddEditScope.stockItems, function (response) {
                     loadPage();
                     modalAddEdit.$promise.then(modalAddEdit.hide);
                 });
             }
             else {
-                subCategoryAddEditScope.submitForm = true;
+                stockItemsAddEditScope.submitForm = true;
             }
         };
 
         modalAddEdit = $modal({
-            scope: subCategoryAddEditScope,
-            templateUrl: "views/category/addEditSubCategory.html",
+            scope: stockItemsAddEditScope,
+            templateUrl: "views/product/addEditStockItem.html",
             show: true,
             backdrop: 'static'
         });

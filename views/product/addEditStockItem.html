@@ -1,0 +1,46 @@
+<div class="modal upload-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 750px;">
+        <div class="modal-content">
+            <div class="modal-header"><h2>{{type}} Stock</h2>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Item</label>
+                                <select class="form-control"
+                                        ng-model="stockItems.item.id"
+                                        ng-options="type.id as type.name for type in itemsList">
+                                    <option value="">Please Select</option>
+                                </select>
+                                <label ng-show="submitted &&  !stockItems.item.id" class="error error-msg">Item is required.</label>
+                                <div class="col-sm-6">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Buying Price</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="stockItems.buyingPrice">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Quantity</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="stockItems.noOfItems">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
