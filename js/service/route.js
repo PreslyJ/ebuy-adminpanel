@@ -50,22 +50,6 @@ app.config(function($routeProvider, $locationProvider) {
 
             }
         })
-        .when('/stock-report', {
-            title: 'Stock Report',
-            templateUrl: 'views/report/stockReport.html',
-            controller: 'reportController',
-            resolve: {
-
-            }
-        })
-        .when('/credit-report', {
-            title: 'Credit Report',
-            templateUrl: 'views/report/creditReport.html',
-            controller: 'reportController',
-            resolve: {
-
-            }
-        })
         .when('/', {
             title: 'login',
             templateUrl: 'login/login.html',
@@ -78,7 +62,36 @@ app.config(function($routeProvider, $locationProvider) {
             resolve: {
 
             }
+        }).when('/stockItem', {
+            title: 'stockItem',
+            templateUrl: 'views/product/stockItem.html',
+            controller: 'stockItemController',
+            resolve: {
+
+            }
+        }).when('/stock-report', {
+            title: 'Stock Report',
+            templateUrl: 'views/report/stockReport.html',
+            controller: 'stockReportController',
+            resolve: {
+
+            }
+        }).when('/sales-report', {
+            title: 'Stock Report',
+            templateUrl: 'views/report/salesSummaryReport.html',
+            controller: 'salesSummaryReportController',
+            resolve: {
+
+            }
+        }).when('/profit-report', {
+            title: 'Stock Report',
+            templateUrl: 'views/report/profitReport.html',
+            controller: 'profitReportController',
+            resolve: {
+
+            }
         })
+
 
         // If 404
         .otherwise({

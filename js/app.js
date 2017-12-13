@@ -186,11 +186,18 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
                         "originalPath": '/stock-report'
                     },
                     {
-                        "title": "Credit Report",
-                        "route": "#/credit-report",
+                        "title": "Sales Summary Report",
+                        "route": "#/sales-report",
                         "active": false,
                         "icon": "fa-file-text-o",
-                        "originalPath": '/credit-report'
+                        "originalPath": '/sales-report'
+                    },
+                    {
+                        "title": "Profit Report",
+                        "route": "#/profit-report",
+                        "active": false,
+                        "icon": "fa-file-text-o",
+                        "originalPath": '/profit-report'
                     }
 
                 ],
@@ -238,31 +245,9 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
 
 
         $rootScope.logOut = function () {
-            var refreshToken=localStorageService.get("refresh_token");
-            if( refreshToken && !jwtHelper.isTokenExpired(refreshToken)){
-                var http = {
-                    method: 'POST',
-                    url: "https://sims.kh.techleadintl.com:8086/sims-login-service/logout",
-                    contentType: "text/plain",
-                    headers:{'REFRESH':localStorageService.get("refresh_token")},
-                    transformResponse : function(data, headersGetter, status){
-                        data = headersGetter();
-                        return data;
-                    }
-                };
-                $http(http)
-                    .success(function (data, status, headers, config) {
-                        localStorage.removeItem('ls.id_token');
-                        localStorage.removeItem('ls.refresh_token');
-                        $location.path('/');
-                    }).error(function (response) {
-                });
-            }
-           else{
                 localStorage.removeItem('ls.id_token');
                 localStorage.removeItem('ls.refresh_token');
                 $location.path('/');
-            }
 
         };
 

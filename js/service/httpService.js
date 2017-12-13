@@ -17,7 +17,8 @@ app.service('HttpService', function($resource, $alert, resourceErrorHandler, hos
         'saveStockItems':{url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/cart/saveStockItem',method:'PUT', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}},
         'getStockReport':{url :  host.get() +rootScope.reportPort+'/ebuy-reporting-api/report/getStockReport',method:'POST', interceptor : {responseError : resourceErrorHandler}},
         'getSalesSummaryReport':{url :  host.get() +rootScope.reportPort+'/ebuy-reporting-api/report/getSalesSummaryReport',method:'POST', interceptor : {responseError : resourceErrorHandler}},
-        'getProfitReport':{url :  host.get() +rootScope.reportPort+'/ebuy-reporting-api/report/getProfitReport',method:'POST', interceptor : {responseError : resourceErrorHandler}}        
+        'getProfitReport':{url :  host.get() +rootScope.reportPort+'/ebuy-reporting-api/report/getProfitReport',method:'POST', interceptor : {responseError : resourceErrorHandler}},
+        'loginDetails':{url:host.get()+$rootScope.loginPort'/ebuy-login-service/login/getUserDetails',method:'POST',ignoreLoadingBar: true,interceptor:{responseError : resourceErrorHandler}}        
     });
 });
 
