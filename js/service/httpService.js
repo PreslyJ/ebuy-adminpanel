@@ -12,7 +12,9 @@ app.service('HttpService', function($resource, $alert, resourceErrorHandler, hos
         'getAllItems':   {url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/cart/getAllItems', method:'POST', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}},
         'saveItem':   {url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/cart/saveItem', method:'PUT', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}},
         'deleteItem': {url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/cart/deleteItem/:id', method:'DELETE', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}},
-        'getAllCustomer':{url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/customer/getAllCustomer',method:'POST', interceptor : {responseError : resourceErrorHandler}}
+        'getAllCustomer':{url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/customer/getAllCustomer',method:'POST', interceptor : {responseError : resourceErrorHandler}},
+        'saveUser':   {url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/cart/saveUser', method:'PUT', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}},
+        'getAllUsers':{url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/customer/getAllUsers',method:'POST', interceptor : {responseError : resourceErrorHandler}}
 
     });
 });

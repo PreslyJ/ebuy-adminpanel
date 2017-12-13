@@ -66,6 +66,14 @@ app.config(function($routeProvider, $locationProvider) {
 
             }
         })
+        .when('/user', {
+            title: 'User Management',
+            templateUrl: 'views/user/user.html',
+            controller: 'userController',
+            resolve: {
+
+            }
+        })
         .when('/', {
             title: 'login',
             templateUrl: 'login/login.html',
