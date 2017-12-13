@@ -10,6 +10,7 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
 
         $rootScope.cartPort=':8082';
         $rootScope.loginPort=':8081';
+        $rootScope.reportPort=':8083';
 
         authManager.redirectWhenUnauthenticated();
         $http.get('version.txt').then(function (res) {

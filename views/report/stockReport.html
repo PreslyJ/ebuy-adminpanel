@@ -3,52 +3,28 @@
         <div class="col-xs-12">
             <div class="filter-panel">
                 <div class="col-md-2">
-                    <label>Category</label>
-                    <div>
-                        <select class="form-control" ng-model="cashBalance.entryType">
-                            <option value="">ALL</option>
-                            <option value="TOPUP">Top Up</option>
-                            <option value="EXCHANGE">Exchange</option>
-                            <option value="CDR">CDR</option>
-                            <option value="RESET">Reset</option>
-                        </select>
 
+
+                <div class="col-md-2">
+                    <label>From  Date</label>
+                    <div class="form-group">
+                        <adm-dtp  ng-model='filterOption.fromDate'  options='{calType: "gregorian", format: " YYYY-MM-DD",dtpType:"date",multiple:false,autoClose:true}'
+                                  full-data="fromDate_detail" maxdate="{{toDate_detail.unix}}" ></adm-dtp>
+
+                        </span>
+                        </div>
                     </div>
-
                 </div>
                 <div class="col-md-2">
-                    <label>Sub Category</label>
-                    <div>
-                        <select class="form-control" ng-model="cashBalance.entryType">
-                            <option value="">ALL</option>
-                            <option value="TOPUP">Top Up</option>
-                            <option value="EXCHANGE">Exchange</option>
-                            <option value="CDR">CDR</option>
-                            <option value="RESET">Reset</option>
-                        </select>
-
+                    <label>To Date</label>
+                    <div class="form-group">
+                        <adm-dtp  ng-model='filterOption.toDate'  options='{calType: "gregorian", format: " YYYY-MM-DD",dtpType:"date",multiple:false,autoClose:true}'
+                                  full-data="toDate_detail" mindate="{{fromDate_detail.unix}}" ></adm-dtp>
                     </div>
+                </div>    
 
-                </div>
-                <div class="col-md-2">
-                    <label>Item</label>
-                    <div>
-                        <select class="form-control" ng-model="cashBalance.entryType">
-                            <option value="">ALL</option>
-                            <option value="TOPUP">Top Up</option>
-                            <option value="EXCHANGE">Exchange</option>
-                            <option value="CDR">CDR</option>
-                            <option value="RESET">Reset</option>
-                        </select>
-
-                    </div>
-
-                </div>
                 <div class="col-md-1">
-                    <button style="margin-top: 23px;"type="button" class="btn btn-primary "  ng-click="search()">Search</button>
-                </div>
-                <div class="col-md-1">
-                    <button style="margin-top: 23px;width :66px ;"type="button" class="btn btn-success "  ng-click="printSmsReport()">Print</button>
+                    <button style="margin-top: 23px;"type="button" class="btn btn-primary "  ng-click="downloadRep()">Download</button>
                 </div>
 
             </div>
@@ -59,7 +35,6 @@
 
     </br>
     </br>
-    <iframe id="smsTableContent" class="reportIframe"  style="width:100%;height: 450px;" ng-src="{{trustUrl(searchoption.htmlUrl)}}"></iframe>
 
 
 
