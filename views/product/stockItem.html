@@ -48,13 +48,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="stockItems in stockItems.stockItemsList ">
+                            <tr ng-repeat="stockItem in stockItems.stockItemsList ">
                                 <td>{{(stockItems.page*pageSize)+$index+1}}</td>
-                                <td>{{stockItems.id}}</td>
-                                <th>{{stockItems.item.name}}</th>
-                                <td>{{stockItems.buyingPrice}}</td>
-                                <td>{{stockItems.sellingPrice}}</td>
-                                <td>{{stockItems.inventryDate}}</td>
+                                <td>{{stockItem.id}}</td>
+                                <th>{{stockItem.item.name}}</th>
+                                <td>{{stockItem.buyingPrice}}</td>
+                                <td>{{stockItem.sellingPrice}}</td>
+                                <td>{{stockItem.inventryDate | date:'dd-MM-yyyy HH:mm'}}</td>
 
 <!--                                 <td>
                                     <div ng-class="{'div-active': subCategory.status == 'active','div-inactive':subCategory.status != 'active'}">
@@ -62,7 +62,7 @@
                                            ng-class="{'fa-check-circle':subCategory.status == 'active','fa-times-circle':subCategory.status != 'active'}"></i>
                                     </div>
                                 </td> -->
-                                <td>
+<!--                                 <td>
                                     <div class="btn-group" ng-model="button.radio" bs-radio-group>
                                         <label class="btn btn-xs btn-primary" ng-click="subCategoryAddEdit('Edit',subCategory)"><input
                                                 class="btn btn-xs btn-default" value="0" type="radio"> Edit</label>
@@ -72,7 +72,7 @@
                                                data-animation="am-flip-x" data-auto-close="1" bs-popover> Delete
                                         </lable>
                                     </div>
-                                </td>
+                                </td> -->
                             </tbody>
 
                         </table>
