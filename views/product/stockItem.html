@@ -12,7 +12,7 @@
                 <div class="col-md-6" style="top:25px">
 
                     <a href="" class="btn btn-sm btn-info" ng-click="search();"><i class="fa  fa-search" aria-hidden="true" title="Search" ></i></a>
-                    <button type="button"  class="btn btn-primary btn-sm" ng-click="subCategoryAddEdit('Add')">Add Sub Category</button>
+                    <button type="button"  class="btn btn-primary btn-sm" ng-click="stockItemAddEdit('Add')">Add Stock</button>
                     <button type="button"  class="btn btn-success btn-sm" ng-click="reloadContent()">Refresh</button>
                     <!--<div class="refresh" style="top: -7px" >
 
@@ -37,30 +37,32 @@
                                additional-padding="{{additionalPadding}}" debounce-wait="400" style="margin-bottom: 0px !important">
                             <thead class="custom-header" fix-head>
                             <tr>
+                                
                                 <th>#</th>
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Category</th>
-                                <th>Active</th>
-                                <th>Action</th>
+                                <th>Item</th>
+                                <th>Buying price</th>
+                                <th>Selling price</th>
+                                <th>Inventry Date</th>
 
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="subCategory in subCategoryDetails.subCategoryList ">
-                                <td>{{(subCategoryDetails.page*pageSize)+$index+1}}</td>
-                                <td>{{subCategory.id}}</td>
-                                <td>{{subCategory.name}}</td>
-                                <td>{{subCategory.description}}</td>
-                                <th>{{subCategory.category.name}}</th>
-                                <td>
+                            <tr ng-repeat="stockItem in stockItems.stockItemsList ">
+                                <td>{{(stockItems.page*pageSize)+$index+1}}</td>
+                                <td>{{stockItem.id}}</td>
+                                <th>{{stockItem.item.name}}</th>
+                                <td>{{stockItem.buyingPrice}}</td>
+                                <td>{{stockItem.sellingPrice}}</td>
+                                <td>{{stockItem.inventryDate | date:'dd-MM-yyyy HH:mm'}}</td>
+
+<!--                                 <td>
                                     <div ng-class="{'div-active': subCategory.status == 'active','div-inactive':subCategory.status != 'active'}">
                                         <i class="fa " aria-hidden="true"
                                            ng-class="{'fa-check-circle':subCategory.status == 'active','fa-times-circle':subCategory.status != 'active'}"></i>
                                     </div>
-                                </td>
-                                <td>
+                                </td> -->
+<!--                                 <td>
                                     <div class="btn-group" ng-model="button.radio" bs-radio-group>
                                         <label class="btn btn-xs btn-primary" ng-click="subCategoryAddEdit('Edit',subCategory)"><input
                                                 class="btn btn-xs btn-default" value="0" type="radio"> Edit</label>
@@ -70,7 +72,7 @@
                                                data-animation="am-flip-x" data-auto-close="1" bs-popover> Delete
                                         </lable>
                                     </div>
-                                </td>
+                                </td> -->
                             </tbody>
 
                         </table>
