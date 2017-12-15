@@ -5,13 +5,12 @@ app.controller('profitReportController', ['$scope', '$modal', 'CommonService', '
         $scope.isInValidSearch=false; 
 
         $scope.downloadRep=function(){
-            if($scope.sbsReport.fromDate && $scope.sbsReport.toDate){
-                if(scope.filterOption.fromDate && scope.filterOption.toDate){
-                    HttpService.getProfitReport({},$scope.filterOption, function (response) {
-                    });
-                }
+            if($scope.filterOption.fromDate && $scope.filterOption.toDate){
+                HttpService.getProfitReport($scope.filterOption, function (response) {
+                });
                 $scope.isInValidSearch =false;
-            }else
+            }
+            else
                 $scope.isInValidSearch =true;  
         }
 

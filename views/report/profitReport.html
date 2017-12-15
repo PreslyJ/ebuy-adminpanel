@@ -2,8 +2,6 @@
     <div class="row clearfix">
         <div class="col-xs-12">
             <div class="filter-panel">
-                <div class="col-md-2">
-
 
                 <div class="col-md-2">
                     <label>From  Date</label>
@@ -11,9 +9,9 @@
                         <adm-dtp  ng-model='filterOption.fromDate'  options='{calType: "gregorian", format: " YYYY-MM-DD",dtpType:"date",multiple:false,autoClose:true}'
                                   full-data="fromDate_detail" maxdate="{{toDate_detail.unix}}" ></adm-dtp>
                          <label ng-show="isInValidSearch &&  !sbsReport.fromDate" class="error error-msg"  style="">From Date is required.</label>
-                        </div>
                     </div>
                 </div>
+                
                 <div class="col-md-2">
                     <label>To Date</label>
                     <div class="form-group">
@@ -32,10 +30,4 @@
         </div>
 
     </div>
-
-    </br>
-    </br>
-
-
-
-</div>
+</div>  

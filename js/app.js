@@ -11,6 +11,7 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
         $rootScope.cartPort=':8082';
         $rootScope.loginPort=':8081';
         $rootScope.reportPort=':8083';
+        $rootScope.loginApp='http://presly:8081/ebuy-login-service/';
 
         authManager.redirectWhenUnauthenticated();
         $http.get('version.txt').then(function (res) {
@@ -328,7 +329,7 @@ app.config(['$resourceProvider', '$alertProvider', 'cfpLoadingBarProvider', '$ht
                     console.log("ExpireDate "+jwtHelper.getTokenExpirationDate(token));
                     console.log(jwtHelper.getTokenExpirationDate(token));
                     return $http({
-                        url: 'http://presly:8081/ebuy-login-service/getAuthToken',
+                        url: $rootScope.loginApp+'getAuthToken',
                         skipAuthorization: true,
                         method: 'POST',
                         contentType: "text/plain",

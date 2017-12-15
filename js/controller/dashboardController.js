@@ -92,11 +92,13 @@ app.controller('dashboardController', ['$scope','HttpService', function ($scope,
        HttpService.getAllItems({ sort: 'name'},{}, function (response) {
              var itemNames=[];
              var inStock=[];
+             var outStock=[];
              response.content.forEach(function(item){
                 itemNames.push(item.name);
                 inStock.push(item.quantity);
              });
              $scope.subscriberData.chart.data[0]=inStock;
+             $scope.subscriberData.chart.data[1]=inStock;
              $scope.subscriberData.chart.labels=itemNames;
         })
     }
