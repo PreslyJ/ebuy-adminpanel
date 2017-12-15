@@ -9,9 +9,9 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
 
 
         $rootScope.cartPort=':8082';
-        $rootScope.loginPort=':8081';
-        $rootScope.reportPort=':8083';
-        $rootScope.loginApp='http://'+window.location.hostname+':8081/ebuy-login-service/';
+        $rootScope.loginPort=':8082';
+        $rootScope.reportPort=':8082';
+        $rootScope.loginApp='http://'+window.location.hostname+':8082/ebuy-login-service/';
 
         authManager.redirectWhenUnauthenticated();
         $http.get('version.txt').then(function (res) {

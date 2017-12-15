@@ -1,9 +1,10 @@
-app.controller('profitReportController', ['$scope', '$http','$rootScope','$modal','host','CommonService', 
-    function ($scope, $http, $rootScope, $modal,host,CommonService) {
+app.controller('profitReportController', ['$scope', '$http','$rootScope','$modal','host','CommonService','HttpService', 
+    function ($scope, $http, $rootScope, $modal,host,CommonService,HttpService) {
 
         $scope.filterOption = {};
         $scope.isInValidSearch=false;
-        
+        $scope.isDisable=false;    
+
         $scope.downloadRep=function(){
 
             if($scope.filterOption.fromDate && $scope.filterOption.toDate){
@@ -21,5 +22,16 @@ app.controller('profitReportController', ['$scope', '$http','$rootScope','$modal
     
         }
 
+        function load(){
+
+            HttpService.getRep2(function (response) {            
+                $scope.isDisable=false;
+            }, function(error) {
+                $scope.isDisable=true;   
+            });
+
+        }
+
+        load();
 
 }]);
