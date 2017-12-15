@@ -203,6 +203,15 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
 
                 ],
                 "originalPath": '/report'
+            },
+            {
+                "mainMenu": "User",
+                "route": "#/user",
+                "active": true,
+                "icon": "fa-table",
+                "subMenuActive": false,
+                "subMenu": [],
+                "originalPath": '/user'
             }
 
         ];
