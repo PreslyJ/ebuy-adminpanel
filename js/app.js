@@ -9,7 +9,9 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
 
 
         $rootScope.cartPort=':8082';
-        $rootScope.loginPort=':8081';
+        $rootScope.loginPort=':8082';
+        $rootScope.reportPort=':8082';
+        $rootScope.loginApp='http://'+window.location.hostname+':8082/ebuy-login-service/';
 
         authManager.redirectWhenUnauthenticated();
         $http.get('version.txt').then(function (res) {
@@ -126,6 +128,15 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
                 "originalPath": '/'
             },
             {
+                "mainMenu": "User",
+                "route": "#/user",
+                "active": true,
+                "icon": "fa-table",
+                "subMenuActive": false,
+                "subMenu": [],
+                "originalPath": '/user'
+            },
+            {
                 "mainMenu": "customer",
                 "route": "#/customer",
                 "active": true,
@@ -185,11 +196,18 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
                         "originalPath": '/stock-report'
                     },
                     {
-                        "title": "Credit Report",
-                        "route": "#/credit-report",
+                        "title": "Sales Summary Report",
+                        "route": "#/sales-report",
                         "active": false,
                         "icon": "fa-file-text-o",
-                        "originalPath": '/credit-report'
+                        "originalPath": '/sales-report'
+                    },
+                    {
+                        "title": "Profit Report",
+                        "route": "#/profit-report",
+                        "active": false,
+                        "icon": "fa-file-text-o",
+                        "originalPath": '/profit-report'
                     }
 
                 ],
@@ -237,31 +255,9 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
 
 
         $rootScope.logOut = function () {
-            var refreshToken=localStorageService.get("refresh_token");
-            if( refreshToken && !jwtHelper.isTokenExpired(refreshToken)){
-                var http = {
-                    method: 'POST',
-                    url: "https://sims.kh.techleadintl.com:8086/sims-login-service/logout",
-                    contentType: "text/plain",
-                    headers:{'REFRESH':localStorageService.get("refresh_token")},
-                    transformResponse : function(data, headersGetter, status){
-                        data = headersGetter();
-                        return data;
-                    }
-                };
-                $http(http)
-                    .success(function (data, status, headers, config) {
-                        localStorage.removeItem('ls.id_token');
-                        localStorage.removeItem('ls.refresh_token');
-                        $location.path('/');
-                    }).error(function (response) {
-                });
-            }
-           else{
                 localStorage.removeItem('ls.id_token');
                 localStorage.removeItem('ls.refresh_token');
                 $location.path('/');
-            }
 
         };
 
@@ -342,7 +338,7 @@ app.config(['$resourceProvider', '$alertProvider', 'cfpLoadingBarProvider', '$ht
                     console.log("ExpireDate "+jwtHelper.getTokenExpirationDate(token));
                     console.log(jwtHelper.getTokenExpirationDate(token));
                     return $http({
-                        url: 'http://presly:8081/ebuy-login-service/getAuthToken',
+                        url: $rootScope.loginApp+'getAuthToken',
                         skipAuthorization: true,
                         method: 'POST',
                         contentType: "text/plain",

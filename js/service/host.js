@@ -1,6 +1,6 @@
 app.service('host', function() {
   	
-  	var url = "http://presly";
+  	var url = 'http://'+window.location.hostname;
 
 
 	this.get=function(){
@@ -13,7 +13,7 @@ app.service('host', function() {
 	};
 
 	 this.loginport= function () {
- 		return ':8081';
+ 		return ':8082';
 	 };
 
 });

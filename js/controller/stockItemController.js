@@ -54,9 +54,9 @@ app.controller('stockItemController', ['$scope', '$modal','CommonService','HttpS
                 }
             }
         }
-        stockItemsAddEditScope.subCategorySubmit = function () {
-            if (stockItemsAddEditScope.stockItems.name && stockItemsAddEditScope.stockItems.category) {
-                HttpService.saveSubCategory(stockItemsAddEditScope.stockItems, function (response) {
+        stockItemsAddEditScope.stockItemsSubmit = function () {
+            if (stockItemsAddEditScope.stockItems.buyingPrice && stockItemsAddEditScope.stockItems.item &&  stockItemsAddEditScope.stockItems.noOfItems) {
+                HttpService.saveStockItems(stockItemsAddEditScope.stockItems, function (response) {
                     loadPage();
                     modalAddEdit.$promise.then(modalAddEdit.hide);
                 });
