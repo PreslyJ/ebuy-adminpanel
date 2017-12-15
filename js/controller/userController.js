@@ -5,36 +5,8 @@ app.controller('userController', ['$scope', '$modal','host','CommonService','Htt
         $scope.userDetails.page = 0;
         $scope.pageSize = 6;
         $scope.userDetails.userList=[];
-        $scope.roleList = [
-            {
-                "role":"admin",
-                "id":1
-            },
-            {
-                "role":"web user",
-                "id":2
-            }
-            ,
-            {
-                "role":"staff member",
-                "id":3
-            }
-        ];
-        $scope.userDetails.userList=[
-            {
-                "userName":"Dush",
-                "roles":[{"role":"admin","id":1},{"role":"web user","id":2}],
-                "id":"132582",
-                "password":"12232"
-            },
-            {
-                "userName":"Presly",
-                "roles":[{"role":"admin","id":1},{"role":"web user","id":2}],
-                "id":"5686568",
-                "password":"12321"
-            }
-
-        ];
+        $scope.roleList = [  ];
+        $scope.userDetails.userList=[  ];
         $scope.host=host.get();
         function managePagination(userDetails) {
             $scope.userDetails.userList=userDetails.content;
@@ -54,7 +26,13 @@ app.controller('userController', ['$scope', '$modal','host','CommonService','Htt
             HttpService.getAllUsers({"page": pageNo, "size": $scope.pageSize, sort: 'id'},{}, function (response) {
                 $scope.userDetails.userList = response;
                 managePagination(response);
-            })
+            });
+
+            HttpService.getAllRoles({},{}, function (response) {
+                $scope.roleList = response.content;
+                
+            });
+
         }
 
         var modalAddEdit;
@@ -91,10 +69,17 @@ app.controller('userController', ['$scope', '$modal','host','CommonService','Htt
                 userAddEditScope.selectedRole = {};
             };
             userAddEditScope.userSubmit = function () {
+                
                 userAddEditScope.submitForm = true;
-                if (userAddEditScope.userDetails.userName && userAddEditScope.userDetails.password && userAddEditScope.userDetails.length ) {
+
+                if(userAddEditScope.userDetails.password &&  userAddEditScope.userDetails.password.length<8)
+                    userAddEditScope.userDetails.length=false;
+                else
+                    userAddEditScope.userDetails.length=true;
+
+                if (userAddEditScope.userDetails.username && userAddEditScope.userDetails.password && userAddEditScope.userDetails.length && userAddEditScope.userDetails.firstName && userAddEditScope.userDetails.surname ) {
                     HttpService.saveUser(userAddEditScope.userDetails, function (response) {
-                        var file = userAddEditScope.img;
+/*                        var file = userAddEditScope.img;
                         var uploadUrl = host.get()+host.cartport()+'/ebuy-cart-service/cart/uploadUserImage?userId='+response.id;
 
                         //CommonService.uploadFileToUrl(file, uploadUrl);
@@ -105,13 +90,15 @@ app.controller('userController', ['$scope', '$modal','host','CommonService','Htt
                             })
                             .error(function () {
                                 //modal.$promise.then(modal.hide);
-                            });
+                            });*/
                         loadPage();
+                        userAddEditScope.submitForm = false;    
                         modalAddEdit.$promise.then(modalAddEdit.hide);
+                    }, function(error) {
+                        if('usernameExists'==error.data.message)                        
+                              userAddEditScope.userDetails.userExists=true;
                     });
-                }
-                else {
-                    userAddEditScope.submitForm = true;
+                    
                 }
             };
 

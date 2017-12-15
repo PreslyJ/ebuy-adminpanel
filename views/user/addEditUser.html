@@ -9,17 +9,31 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <label for="apn">User Name</label>
-                                <input type="text" class="form-control" ng-model="userDetails.userName">
-                                <label ng-show="submitForm &&  !userDetails.userName" class="error error-msg"
+                                <input type="text" class="form-control" ng-model="userDetails.username">
+                                <label ng-show="submitForm &&  !userDetails.username" class="error error-msg"
                                 >Userame is required.</label>
+                                <label ng-show="submitForm &&  userDetails.userExists" class="error error-msg"
+                                >Userame already exists.</label>
                             </div>
                             <div class="col-sm-12">
                                 <label>Password</label>
                                 <input type="password" class="form-control" ng-model="userDetails.password">
 
-                                <label ng-show="submitted &&  !userDetails.password" class="error error-msg">Sub
-                                    Password is required.</label>
+                                <label ng-show="submitForm &&  !userDetails.password" class="error error-msg">Password is required.</label>
+                                <label ng-show="submitForm &&  userDetails.password && !userDetails.length" class="error error-msg">Password is too short.</label>
 
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="apn">First Name</label>
+                                <input type="text" class="form-control" ng-model="userDetails.firstName">
+                                <label ng-show="submitForm &&  !userDetails.firstName" class="error error-msg"
+                                >First Name is required.</label>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="apn">Surname</label>
+                                <input type="text" class="form-control" ng-model="userDetails.surname">
+                                <label ng-show="submitForm &&  !userDetails.surname" class="error error-msg"
+                                >Surname is required.</label>
                             </div>
                             <div class="col-sm-12">
                                 <label>Roles </label>
@@ -27,7 +41,7 @@
                                 <span  style="display: inline-block;width: 180px;"  ng-repeat="role in userDetails.roles track by $index">
 
                                     <input type="text" name="quant[2]" class="form-control input-number"
-                                           ng-model="role.role" style="width: 120px;display: inline-block;"
+                                           ng-model="role.label" style="width: 120px;display: inline-block;"
                                     >
                                     <span class="input-group-btn" style="display: inline-block;top: -2px;position: relative;">
 
@@ -44,7 +58,7 @@
                                 <label> Add Roles </label>
                                 <select class="form-control" name="operator"
                                         ng-model="selectedRole"
-                                        ng-options="role as role.role for role in roleList">
+                                        ng-options="role as role.label for role in roleList">
                                     <option value="">Please Select</option>
                                 </select>
 
@@ -66,7 +80,7 @@
                                 Close
                             </button>
                             <input type="submit" class="btn btn-primary" value="Save changes"
-                                   ng-click="itemSubmit(itemDetails)">
+                                   ng-click="userSubmit(itemDetails)">
                         </div>
                     </div>
                 </div>

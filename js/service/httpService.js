@@ -13,14 +13,18 @@ app.service('HttpService', function($resource, $alert, resourceErrorHandler, hos
         'saveItem':   {url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/cart/saveItem', method:'PUT', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}},
         'deleteItem': {url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/cart/deleteItem/:id', method:'DELETE', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}},
         'getAllCustomer':{url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/customer/getAllCustomer',method:'POST', interceptor : {responseError : resourceErrorHandler}},
-        'saveUser':   {url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/cart/saveUser', method:'PUT', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}},
-        'getAllUsers':{url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/customer/getAllUsers',method:'POST', interceptor : {responseError : resourceErrorHandler}},
+        'saveUser':   {url :  host.get() +$rootScope.loginPort+'/ebuy-login-service/auth/register', method:'POST', interceptor : { response : resourceSuccessHandler }},
+        'getAllUsers':{url :  host.get() +$rootScope.loginPort+'/ebuy-login-service/auth/getAllUsers',method:'POST', interceptor : {responseError : resourceErrorHandler}},
         'getAllStockItems':{url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/cart/getAllStockItems',method:'POST', interceptor : {responseError : resourceErrorHandler}},
         'saveStockItems':{url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/cart/saveStockItem',method:'PUT', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}},
-        'getStockReport':{url :  host.get() +$rootScope.reportPort+'/ebuy-reporting-api/report/getStockReport',method:'POST', interceptor : {responseError : resourceErrorHandler}},
-        'getSalesSummaryReport':{url :  host.get() +$rootScope.reportPort+'/ebuy-reporting-api/report/getSalesSummaryReport',method:'POST', interceptor : {responseError : resourceErrorHandler}},
-        'getProfitReport':{url :  host.get() +$rootScope.reportPort+'/ebuy-reporting-api/report/getProfitReport',method:'POST', interceptor : {responseError : resourceErrorHandler}},
-        'loginDetails':{url : host.get()+$rootScope.loginPort+'/ebuy-login-service/auth/getUserDetails',method:'POST',ignoreLoadingBar: true,interceptor:{responseError : resourceErrorHandler}}        
+        'getStockReport':{url :  host.get() +$rootScope.reportPort+'/ebuy-reporting-api/report/getStockReport',method:'GET', interceptor : {responseError : resourceErrorHandler}},
+        'getSalesSummaryReport':{url :  host.get() +$rootScope.reportPort+'/ebuy-reporting-api/report/getSalesSummaryReport',method:'GET', interceptor : {responseError : resourceErrorHandler}},
+        'getProfitReport':{url :  host.get() +$rootScope.reportPort+'/ebuy-reporting-api/report/getProfitReport',method:'GET', interceptor : {responseError : resourceErrorHandler}},
+        'loginDetails':{url : host.get()+$rootScope.loginPort+'/ebuy-login-service/auth/getUserDetails',method:'POST',ignoreLoadingBar: true,interceptor:{responseError : resourceErrorHandler}},
+        'getAvgViews':   {url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/dashboard/getAvgViews', method:'GET', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}},
+        'getAvgItemPurchases':   {url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/dashboard/getAvgItemPurchases', method:'GET', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}},
+        'getStockDetails':   {url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/dashboard/getStockDetails', method:'GET', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}},
+        'getAllRoles':{url :  host.get() +$rootScope.loginPort+'/ebuy-login-service/auth/getAllRoles',method:'POST', interceptor : {responseError : resourceErrorHandler}}                                   
     });
 });
 

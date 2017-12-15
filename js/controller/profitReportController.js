@@ -1,17 +1,25 @@
-app.controller('profitReportController', ['$scope', '$modal', 'CommonService', 'HttpService',
-    function ($scope, $modal, CommonService,  HttpService) {
+app.controller('profitReportController', ['$scope', '$http','$rootScope','$modal','host','CommonService', 
+    function ($scope, $http, $rootScope, $modal,host,CommonService) {
 
         $scope.filterOption = {};
-        $scope.isInValidSearch=false; 
-
+        $scope.isInValidSearch=false;
+        
         $scope.downloadRep=function(){
+
             if($scope.filterOption.fromDate && $scope.filterOption.toDate){
-                HttpService.getProfitReport($scope.filterOption, function (response) {
+                jQuery.ajax({
+                     url: '/',
+                     data: {},
+                     success: function(){
+                        window.open(host.get() +$rootScope.reportPort+'/ebuy-reporting-api/report/getProfitReport?fromDate='+$scope.filterOption.fromDate+'&toDate='+$scope.filterOption.toDate);
+                     },
+                     async: false
                 });
                 $scope.isInValidSearch =false;
-            }
-            else
+            }else
                 $scope.isInValidSearch =true;  
+    
         }
+
 
 }]);

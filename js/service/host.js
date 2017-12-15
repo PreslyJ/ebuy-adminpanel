@@ -1,6 +1,6 @@
 app.service('host', function() {
   	
-  	var url = "http://presly";
+  	var url = 'http://'+window.location.hostname;
 
 
 	this.get=function(){

@@ -11,7 +11,7 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
         $rootScope.cartPort=':8082';
         $rootScope.loginPort=':8081';
         $rootScope.reportPort=':8083';
-        $rootScope.loginApp='http://presly:8081/ebuy-login-service/';
+        $rootScope.loginApp='http://'+window.location.hostname+':8081/ebuy-login-service/';
 
         authManager.redirectWhenUnauthenticated();
         $http.get('version.txt').then(function (res) {
@@ -128,6 +128,15 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
                 "originalPath": '/'
             },
             {
+                "mainMenu": "User",
+                "route": "#/user",
+                "active": true,
+                "icon": "fa-table",
+                "subMenuActive": false,
+                "subMenu": [],
+                "originalPath": '/user'
+            },
+            {
                 "mainMenu": "customer",
                 "route": "#/customer",
                 "active": true,
@@ -203,15 +212,6 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
 
                 ],
                 "originalPath": '/report'
-            },
-            {
-                "mainMenu": "User",
-                "route": "#/user",
-                "active": true,
-                "icon": "fa-table",
-                "subMenuActive": false,
-                "subMenu": [],
-                "originalPath": '/user'
             }
 
         ];
