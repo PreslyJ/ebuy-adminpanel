@@ -41,6 +41,7 @@
                                 <th>#</th>
                                 <th>ID</th>
                                 <th>Item</th>
+                                <th>Quantity</th>
                                 <th>Buying price</th>
                                 <th>Selling price</th>
                                 <th>Inventry Date</th>
@@ -49,9 +50,10 @@
                             </thead>
                             <tbody>
                             <tr ng-repeat="stockItem in stockItems.stockItemsList ">
-                                <td>{{(stockItems.page*pageSize)+$index+1}}</td>
+                                 <td>{{(stockItems.page*pageSize)+$index+1}}</td>
                                 <td>{{stockItem.id}}</td>
                                 <th>{{stockItem.item.name}}</th>
+                                <th>{{stockItem.noOfItems}}</th>
                                 <td>{{stockItem.buyingPrice}}</td>
                                 <td>{{stockItem.sellingPrice}}</td>
                                 <td>{{stockItem.inventryDate | date:'dd-MM-yyyy HH:mm'}}</td>
