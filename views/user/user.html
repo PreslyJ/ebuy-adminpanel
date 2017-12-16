@@ -54,7 +54,7 @@
                                 <td>{{user.username}}</td>
                                 <td>{{user.firstName}}</td>
                                 <td>{{user.surname}}</td>
-                                <td><span ng-repeat="role in user.roles">{{role.label}}<span ng-if="$index !=userDetails.userList.length -1 && userDetails.userList.length >1"> &nbsp;,&nbsp; </span></span></td>
+                                <td><span ng-repeat="role in user.roles">{{role.label}}<span ng-if="$index !=user.roles.length -1 && user.roles.length >1"> &nbsp;,&nbsp; </span></span></td>
                                 <td>
                                     <div class="btn-group" ng-model="button.radio" bs-radio-group>
                                         <label class="btn btn-xs btn-primary" ng-click="userAddEdit('Edit',user)"><input

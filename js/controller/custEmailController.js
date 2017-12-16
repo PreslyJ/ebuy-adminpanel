@@ -1,13 +1,12 @@
 app.controller('custEmailController', ['$scope', '$modal','host','CommonService','HttpService',
     function ($scope, $modal,host,CommonService,HttpService) {
         $scope.email = {};
-        $scope.email.content = "";
-        
-
+        $scope.msg = "";
+        $scope.disabled=false;
 
         $scope.sendEmail = function () {
-            HttpService.sendEmail($scope.email.content,function (response) {
-                $scope.email.content={};
+            HttpService.sendEmail($scope.msg,function (response) {
+                $scope.disabled=true;
             })
         };
 

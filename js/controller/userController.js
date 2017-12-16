@@ -8,6 +8,7 @@ app.controller('userController', ['$scope', '$modal','host','CommonService','Htt
         $scope.roleList = [  ];
         $scope.userDetails.userList=[  ];
         $scope.host=host.get();
+        $scope.disabled=false;
         function managePagination(userDetails) {
             $scope.userDetails.userList=userDetails.content;
             $scope.userDetails.totalPages = userDetails.totalPages;
@@ -44,6 +45,7 @@ app.controller('userController', ['$scope', '$modal','host','CommonService','Htt
             userAddEditScope.roleList = angular.copy($scope.roleList);
 
             if (type == "Edit") {
+                $scope.disabled=true;
                 userAddEditScope.userDetails = value;
                 if(userAddEditScope.userDetails.roles.length){
                     angular.forEach(userAddEditScope.userDetails.roles,function(role){
@@ -78,27 +80,50 @@ app.controller('userController', ['$scope', '$modal','host','CommonService','Htt
                     userAddEditScope.userDetails.length=true;
 
                 if (userAddEditScope.userDetails.username && userAddEditScope.userDetails.password && userAddEditScope.userDetails.length && userAddEditScope.userDetails.firstName && userAddEditScope.userDetails.surname ) {
-                    HttpService.saveUser(userAddEditScope.userDetails, function (response) {
-/*                        var file = userAddEditScope.img;
-                        var uploadUrl = host.get()+host.cartport()+'/ebuy-cart-service/cart/uploadUserImage?userId='+response.id;
+                   
+                    if (type == "Edit") {
+                        HttpService.editUser(userAddEditScope.userDetails, function (response) {
+    /*                        var file = userAddEditScope.img;
+                            var uploadUrl = host.get()+host.cartport()+'/ebuy-cart-service/cart/uploadUserImage?userId='+response.id;
 
-                        //CommonService.uploadFileToUrl(file, uploadUrl);
-                        CommonService.uploadFileToUrl(file, uploadUrl)
-                            .success(function () {
-                                modal.$promise.then(modal.hide);
+                            //CommonService.uploadFileToUrl(file, uploadUrl);
+                            CommonService.uploadFileToUrl(file, uploadUrl)
+                                .success(function () {
+                                    modal.$promise.then(modal.hide);
 
-                            })
-                            .error(function () {
-                                //modal.$promise.then(modal.hide);
-                            });*/
-                        loadPage();
-                        userAddEditScope.submitForm = false;    
-                        modalAddEdit.$promise.then(modalAddEdit.hide);
-                    }, function(error) {
-                        if('usernameExists'==error.data.message)                        
-                              userAddEditScope.userDetails.userExists=true;
-                    });
-                    
+                                })
+                                .error(function () {
+                                    //modal.$promise.then(modal.hide);
+                                });*/
+                            loadPage();
+                            userAddEditScope.submitForm = false;    
+                            modalAddEdit.$promise.then(modalAddEdit.hide);
+                        }, function(error) {
+                            if('usernameExists'==error.data.message)                        
+                                  userAddEditScope.userDetails.userExists=true;
+                        });
+                    }else{    
+                        HttpService.saveUser(userAddEditScope.userDetails, function (response) {
+    /*                        var file = userAddEditScope.img;
+                            var uploadUrl = host.get()+host.cartport()+'/ebuy-cart-service/cart/uploadUserImage?userId='+response.id;
+
+                            //CommonService.uploadFileToUrl(file, uploadUrl);
+                            CommonService.uploadFileToUrl(file, uploadUrl)
+                                .success(function () {
+                                    modal.$promise.then(modal.hide);
+
+                                })
+                                .error(function () {
+                                    //modal.$promise.then(modal.hide);
+                                });*/
+                            loadPage();
+                            userAddEditScope.submitForm = false;    
+                            modalAddEdit.$promise.then(modalAddEdit.hide);
+                        }, function(error) {
+                            if('usernameExists'==error.data.message)                        
+                                  userAddEditScope.userDetails.userExists=true;
+                        });
+                    }                    
                 }
             };
 

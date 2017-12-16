@@ -28,8 +28,8 @@ app.service('HttpService', function($resource, $alert, resourceErrorHandler, hos
         'getRep1':{url :  host.get() +$rootScope.reportPort+'/ebuy-reporting-api/report/R1',method:'GET', interceptor : {responseError : resourceErrorHandler}},
         'getRep2':{url :  host.get() +$rootScope.reportPort+'/ebuy-reporting-api/report/R2',method:'GET', interceptor : {responseError : resourceErrorHandler}},
         'getRep3':{url :  host.get() +$rootScope.reportPort+'/ebuy-reporting-api/report/R3',method:'GET', interceptor : {responseError : resourceErrorHandler}} ,
-        'sendEmail':{url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/email/ssendEmail',method:'PUT', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}}
-
+        'sendEmail':{url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/dashboard/sendEmailToAllSubscribers',method:'POST', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}},
+        'editUser':   {url :  host.get() +$rootScope.loginPort+'/ebuy-login-service/auth/editUser', method:'POST', interceptor : { response : resourceSuccessHandler }}
     });
 });
 

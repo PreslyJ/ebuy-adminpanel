@@ -9,11 +9,11 @@ app.service('host', function() {
 
 
 	this.cartport= function () {
-		return ':8082';
+		return ':8080';
 	};
 
 	 this.loginport= function () {
- 		return ':8082';
+ 		return ':8080';
 	 };
 
 });
