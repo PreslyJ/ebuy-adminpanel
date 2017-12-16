@@ -1,5 +1,5 @@
-app.controller('salesSummaryReportController', ['$scope', '$http','$rootScope','$modal','host','CommonService', 
-    function ($scope, $http, $rootScope, $modal,host,CommonService) {
+app.controller('salesSummaryReportController', ['$scope', '$http','$rootScope','$modal','host','CommonService', 'HttpService', 
+    function ($scope, $http, $rootScope, $modal,host,CommonService,HttpService) {
 
         $scope.filterOption = {};
         $scope.isInValidSearch=false;
