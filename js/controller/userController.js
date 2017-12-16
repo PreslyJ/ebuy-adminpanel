@@ -47,7 +47,7 @@ app.controller('userController', ['$scope', '$modal','host','CommonService','Htt
                 userAddEditScope.userDetails = value;
                 if(userAddEditScope.userDetails.roles.length){
                     angular.forEach(userAddEditScope.userDetails.roles,function(role){
-                        userAddEditScope.roleList.splice(userAddEditScope.roleList.indexOf(role), 1)
+                        userAddEditScope.roleList.splice(_.findIndex(userAddEditScope.roleList,{"id":role.id}), 1)
                     })
                 }
             }
