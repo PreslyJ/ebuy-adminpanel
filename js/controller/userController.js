@@ -8,7 +8,7 @@ app.controller('userController', ['$scope', '$modal','host','CommonService','Htt
         $scope.roleList = [  ];
         $scope.userDetails.userList=[  ];
         $scope.host=host.get();
-        $scope.disabled=false;
+        $scope.disabledtxt=false;
         function managePagination(userDetails) {
             $scope.userDetails.userList=userDetails.content;
             $scope.userDetails.totalPages = userDetails.totalPages;
@@ -38,6 +38,7 @@ app.controller('userController', ['$scope', '$modal','host','CommonService','Htt
 
         var modalAddEdit;
         $scope.userAddEdit = function (type, value) {
+            //$scope.disabledtxt=false;
             var userAddEditScope = $scope.$new(true);
             userAddEditScope.type = type;
             userAddEditScope.submitForm = false;
@@ -45,7 +46,7 @@ app.controller('userController', ['$scope', '$modal','host','CommonService','Htt
             userAddEditScope.roleList = angular.copy($scope.roleList);
 
             if (type == "Edit") {
-                $scope.disabled=true;
+                $scope.disabledtxt=true;
                 userAddEditScope.userDetails = value;
                 if(userAddEditScope.userDetails.roles.length){
                     angular.forEach(userAddEditScope.userDetails.roles,function(role){
@@ -54,6 +55,7 @@ app.controller('userController', ['$scope', '$modal','host','CommonService','Htt
                 }
             }
             else {
+
                 userAddEditScope.userDetails = {
                     "userName": "",
                     "password": "",

@@ -9,7 +9,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <label for="apn">User Name</label>
-                                <input type="text" ng-disabled="disabled" class="form-control" ng-model="userDetails.username">
+                                <input type="text" ng-disabled="disabledtxt" class="form-control" ng-model="userDetails.username">
                                 <label ng-show="submitForm &&  !userDetails.username" class="error error-msg"
                                 >Userame is required.</label>
                                 <label ng-show="submitForm &&  userDetails.userExists" class="error error-msg"
