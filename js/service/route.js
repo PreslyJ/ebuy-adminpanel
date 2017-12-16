@@ -114,6 +114,13 @@ app.config(function($routeProvider, $locationProvider) {
             resolve: {
 
             }
+        }).when('/customer-care', {
+            title: 'Customer Care',
+            templateUrl: 'views/email/email.html',
+            controller: 'custEmailController',
+            resolve: {
+
+            }
         })
         // If 404
         .otherwise({

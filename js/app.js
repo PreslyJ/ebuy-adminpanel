@@ -212,7 +212,16 @@ app.run(['$rootScope', '$route', '$alert',  '$window', '$cookies', '$location', 
 
                 ],
                 "originalPath": '/report'
-            }
+            },
+            {
+                "mainMenu": "Customer Care",
+                "route": "#/customer-care",
+                "active": true,
+                "icon": "fa-table",
+                "subMenuActive": false,
+                "subMenu": [],
+                "originalPath": '/customer-care'
+            },
 
         ];
         $rootScope.clickOnMainMenu = function (index) {

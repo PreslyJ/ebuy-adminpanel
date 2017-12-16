@@ -27,7 +27,9 @@ app.service('HttpService', function($resource, $alert, resourceErrorHandler, hos
         'getAllRoles':{url :  host.get() +$rootScope.loginPort+'/ebuy-login-service/auth/getAllRoles',method:'POST', interceptor : {responseError : resourceErrorHandler}},
         'getRep1':{url :  host.get() +$rootScope.reportPort+'/ebuy-reporting-api/report/R1',method:'GET', interceptor : {responseError : resourceErrorHandler}},
         'getRep2':{url :  host.get() +$rootScope.reportPort+'/ebuy-reporting-api/report/R2',method:'GET', interceptor : {responseError : resourceErrorHandler}},
-        'getRep3':{url :  host.get() +$rootScope.reportPort+'/ebuy-reporting-api/report/R3',method:'GET', interceptor : {responseError : resourceErrorHandler}}                                              
+        'getRep3':{url :  host.get() +$rootScope.reportPort+'/ebuy-reporting-api/report/R3',method:'GET', interceptor : {responseError : resourceErrorHandler}} ,
+        'sendEmail':{url :  host.get() +$rootScope.cartPort+'/ebuy-cart-service/email/ssendEmail',method:'PUT', interceptor : { response : resourceSuccessHandler ,responseError : resourceErrorHandler}}
+
     });
 });
 
